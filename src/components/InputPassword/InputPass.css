@@ -1,0 +1,41 @@
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-input {
+    width: 100%;
+    padding: 12px 50px 12px 25px; /* Más espacio a la derecha para el ojo */
+    border-radius: 50px;
+    border: 1px solid #4a3f35;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+    color: #4a3f35;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+  }
+  
+  .forgot-link {
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #4a3f35;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+  }
+  
+  .forgot-link:hover {
+    text-decoration: underline;
+  }
