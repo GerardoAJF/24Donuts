@@ -1,0 +1,23 @@
+.boton-primario {
+    background-color: #3b312b; 
+    color: white;
+    padding: 12px 30px; 
+    border-radius: 50px; 
+    font-family: 'Georgia', serif; 
+    font-size: 1.1rem;
+    font-weight: normal;
+    border: none;
+    cursor: pointer;
+    outline: none; 
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .boton-primario:hover {
+    background-color: #4a3f35;
+  }
+  
+  .boton-primario:active {
+    transform: scale(0.98);
+  }
