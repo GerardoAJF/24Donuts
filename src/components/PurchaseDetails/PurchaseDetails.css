@@ -1,0 +1,58 @@
+.purchase-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #ffffff;
+  border: 1.5px solid #e0d5cb;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(59, 49, 43, 0.08);
+  padding: 28px 30px;
+  width: 380px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.purchase-details-title {
+  font-family: "Georgia", serif;
+  font-size: 1.5rem;
+  color: #3b312b;
+  text-align: center;
+  margin: 0;
+}
+
+.purchase-details .select-container {
+  max-width: 100%;
+  width: 100%;
+}
+
+.purchase-details .select-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.purchase-details-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.purchase-details-row .input-container {
+  max-width: 100%;
+  min-width: 0;
+  flex: 1;
+}
+
+.purchase-details-row .input-container .input-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.purchase-details .delivery-checkbox {
+  padding-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.purchase-details .boton-primario {
+  width: 100%;
+  display: block;
+}
