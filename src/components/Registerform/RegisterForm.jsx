@@ -1,9 +1,6 @@
 import './RegisterForm.css';
 
-// 1. Salimos de RegisterForm, entramos a assets y buscamos la imagen
-import imagenDonuts from '../../assets/donuts.png'; // Asegúrate que el nombre y extensión coincidan
-
-// 2. Salimos de RegisterForm y entramos a las otras carpetas de componentes
+import imagenDonuts from '../../assets/donuts.png'; 
 import BotonPrimario from '../Boton/Boton.jsx'; 
 import InputCustom from '../Input/Input.jsx';
 import InputPassword from '../InputPassword/InputPass.jsx';
@@ -12,7 +9,6 @@ function RegisterForm() {
   return (
     <div className="registro-container">
       <div className="registro-imagen-seccion">
-        {/* 3. Usamos la variable de la imagen */}
         <img 
           src={imagenDonuts} 
           alt="Donuts Anna" 
