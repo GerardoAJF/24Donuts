@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './InputPass.css';
 
-function InputPassword({ label }) {
-  // Estado para ver si la contraseña es visible o no
+function InputPassword({ label, showForgotLink = true }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -10,7 +9,7 @@ function InputPassword({ label }) {
   };
 
   return (
-    <div className="input-container"> {/* Reutilizamos el estilo del label anterior */}
+    <div className="input-container">
       <label className="input-label">{label}</label>
       
       <div className="password-wrapper">
@@ -20,13 +19,14 @@ function InputPassword({ label }) {
           placeholder="***********"
         />
         
-        {/* Botón del ojo */}
         <button type="button" className="eye-icon" onClick={toggleVisibility}>
           {isVisible ? '👁️‍🗨️' : '👁️'} 
         </button>
       </div>
 
-      <a href="#" className="forgot-link">¿Olvidaste tu contraseña?</a>
+      {showForgotLink && (
+        <a href="#" className="forgot-link">¿Olvidaste tu contraseña?</a>
+      )}
     </div>
   );
 }

@@ -1,0 +1,137 @@
+/* RegistrateForm.css */
+
+/* Estilos globales rápidos (puedes mover esto a tu index.css) */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4; /* Color de fondo gris claro de la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Contenedor principal del formulario */
+.registro-container {
+  display: flex;
+  width: 900px; /* Ancho máximo aproximado */
+  max-width: 95%; /* Adaptable a pantallas más pequeñas */
+  background-color: #fff;
+  border-radius: 10px; /* Esquinas ligeramente redondeadas para todo el bloque */
+  overflow: hidden; /* Asegura que la imagen no se salga de las esquinas redondeadas */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidad */
+}
+
+/* --- Sección Izquierda: Imagen --- */
+.registro-imagen-seccion {
+  flex: 1; /* Ocupa la mitad del espacio */
+  background-color: #e6e6e6; /* Color de fondo si la imagen no carga */
+}
+
+.registro-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen sin deformarla */
+}
+
+/* --- Sección Derecha: Formulario --- */
+.registro-formulario-seccion {
+  flex: 1; /* Ocupa la otra mitad del espacio */
+  padding: 40px 50px; /* Espaciado interno generoso */
+  display: flex;
+  flex-direction: column;
+}
+
+.registro-titulo {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-family: 'Georgia', serif; /* Fuente similar a la de la imagen */
+  font-weight: 500;
+  font-size: 2.2rem;
+  color: #333;
+}
+
+/* Estilo para las filas de inputs (Nombres/Apellidos) */
+.formulario-fila {
+  display: flex;
+  gap: 20px; /* Espacio entre los dos inputs */
+  margin-bottom: -10px; /* Pequeño ajuste para que no haya demasiado espacio vertical */
+}
+
+/* Asegurar que los inputs individuales tomen el ancho completo de su columna en una fila */
+.formulario-fila .input-container {
+  flex: 1;
+}
+
+/* Estilos específicos para los componentes hijos (InputCustom, InputPassword) */
+/* (Asegúrate de que tus archivos CSS originales tengan estos selectores) */
+
+.input-container {
+  margin-bottom: 15px; /* Espacio vertical entre campos */
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ESTILO CLAVE PARA LOGRAR EL EFECTO DE LA IMAGEN (en tus archivos originales) */
+.input-field,
+.password-input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid #dcdcdc; /* Borde gris claro */
+  border-radius: 25px; /* ESQUINAS MUY REDONDEADAS COMO EN LA IMAGEN */
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box; /* Importante para el padding */
+}
+
+.input-field:focus,
+.password-input:focus {
+  outline: none;
+  border-color: #888; /* Borde más oscuro al enfocar */
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
+  padding: 0;
+}
+
+/* --- Botón de envío --- */
+.formulario-boton-wrapper {
+  margin-top: auto; /* Empuja el botón al final de su columna si el contenido es corto */
+  padding-top: 30px;
+}
+
+/* ESTILO ESPECÍFICO DEL BOTÓN (para que coincida con la imagen) */
+.boton-primario {
+  width: auto; /* Ancho auto, no 100% como el input */
+  padding: 12px 50px; /* Padding generoso a los lados */
+  background-color: #3e3333; /* Color marrón oscuro de la imagen */
+  color: #fff;
+  border: none;
+  border-radius: 25px; /* Esquinas redondeadas como pastilla */
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-primario:hover {
+  background-color: #2e2626;
+}
