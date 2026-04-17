@@ -1,0 +1,40 @@
+.daySelector-component {
+  text-align: left; 
+  margin: 20px 0;
+}
+
+.daySelector-title {
+  font-family: serif; 
+  color: #433635; 
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: normal; 
+}
+
+.daySelector-container {
+  display: flex;
+  gap: 12px; 
+}
+
+.day-circle {
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%;
+  background-color: #433635; 
+  color: #dfcecb; 
+  border: none;
+  font-family: serif; 
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: background-color 0.2s ease;
+}
+
+.day-circle:hover {
+  background-color: #322827;
+}
