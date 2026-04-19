@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ProductSummaryBar from "../ProductSummaryBar/ProductSummaryBar.jsx";
 import "./OrderRow.css";
 
-const OrderRow = ({ name, date, quantity, total, paymentMethod, delivery, status, details, products, onAccept, onReject, onComplete}) => {
+const OrderRow = ({ name, date, quantity, total, paymentMethod, delivery, status, details, products, onAccept, onReject, onComplete }) => {
     const [open, setOpen] = useState(false);
 
     return (

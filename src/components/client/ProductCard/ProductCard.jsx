@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BotonPrimario from "../Boton/Boton";
-import Counter from "../Counter/Counter";
+import Counter from "../../shared/Counter/Counter";
 import "./ProductCard.css";
 
 function ProductCard({ image, name, tags = [], description, price }) {
