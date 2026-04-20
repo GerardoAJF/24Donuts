@@ -63,4 +63,12 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
+.tag-manager__item--selectable {
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.tag-manager__item--selectable:hover {
+  filter: brightness(0.92);
+}
 

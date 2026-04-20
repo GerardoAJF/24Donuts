@@ -1,0 +1,100 @@
+/* PromoForm.css */
+.promo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #D8C4C4;
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: fit-content; /* crece con el contenido */
+  max-width: 90vw;    /* pero no se sale de la pantalla */
+}
+
+.promo-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.promo-form__title {
+  font-size: 2rem;
+  color: #3E3232;
+  margin: 0;
+}
+
+.promo-form__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #3E3232;
+  opacity: 0.6;
+  padding: 4px;
+  border-radius: 6px;
+  transition: opacity 0.15s, background 0.15s;
+  line-height: 1;
+}
+
+.promo-form__close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.promo-form__body {
+  display: flex;
+  gap: 32px;
+}
+
+.promo-form__left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.promo-form__right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.promo-form__dates {
+  display: flex;
+  gap: 16px;
+}
+
+.promo-form__bottom {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.promo-form__products {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.promo-form__search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.promo-form__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.promo-form__label {
+  font-size: 1.1rem;
+  color: #4a3f35;
+  margin-left: 8px;
+}
+
+

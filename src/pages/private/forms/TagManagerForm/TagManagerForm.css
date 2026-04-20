@@ -1,0 +1,34 @@
+/* TagManagerForm.css */
+.tag-manager-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #D8C4C4;
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 280px;
+}
+
+/* TagManagerForm.css */
+.tag-manager-form__header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tag-manager-form__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #3E3232;
+  opacity: 0.6;
+  padding: 4px;
+  border-radius: 6px;
+  transition: opacity 0.15s, background 0.15s;
+  line-height: 1;
+}
+
+.tag-manager-form__close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.08);
+}
