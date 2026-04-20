@@ -1,0 +1,66 @@
+/* TagManager.css */
+.tag-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #C4A0A0 transparent;
+}
+
+.tag-manager::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tag-manager::-webkit-scrollbar-thumb {
+  background: #C4A0A0;
+  border-radius: 999px;
+}
+
+.tag-manager::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tag-manager__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+
+.tag-manager__name {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tag-manager__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.tag-manager__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 6px;
+  opacity: 0.8;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.tag-manager__btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.tag-manager__btn:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+

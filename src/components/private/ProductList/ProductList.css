@@ -1,0 +1,45 @@
+/* ProductList.css */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #C4A0A0 transparent;
+}
+
+.product-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.product-list::-webkit-scrollbar-thumb {
+  background: #C4A0A0;
+  border-radius: 999px;
+}
+
+.product-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.product-list__item {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #A87C7C;
+  color: #3E3232;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.product-list__item:hover {
+  background: #C4A0A0;
+}
+
+.product-list__item--selected {
+  background: #3E3232;
+  color: #D8C4C4;
+}
