@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BotonPrimario from "../Boton/Boton";
+import BotonPrimario from "../../shared/Boton/Boton";
 import Counter from "../../shared/Counter/Counter";
 import "./ProductCard.css";
 

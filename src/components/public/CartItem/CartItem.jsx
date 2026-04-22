@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Counter from "../../Counter/Counter";
+import Counter from "../../shared/Counter/Counter";
 import "./CartItem.css";
 
 function CartItem({ image, name, price }) {

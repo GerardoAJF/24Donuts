@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./DeliveryCheckbox.css";
 
-function DeliveryCheckbox({ onChange }) {
+function DeliveryCheckbox({ label = "Delivery:", onChange }) {
   const [checked, setChecked] = useState(false);
 
   const handleChange = () => {
@@ -12,13 +12,13 @@ function DeliveryCheckbox({ onChange }) {
 
   return (
     <label className="delivery-checkbox">
-      <span className="delivery-checkbox-label">Delivery:</span>
       <input
         type="checkbox"
         className="delivery-checkbox-input"
         checked={checked}
         onChange={handleChange}
       />
+      <span className="delivery-checkbox-label">{label}</span>
     </label>
   );
 }

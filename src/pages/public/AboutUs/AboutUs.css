@@ -1,0 +1,65 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HISTORIA */
+.about-historia {
+  background-color: #f5f0eb;
+  padding: 60px 80px;
+}
+
+.about-section-title {
+  font-family: "Georgia", serif;
+  font-size: 2rem;
+  color: #3b312b;
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+.about-historia-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-historia-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-historia-text p {
+  font-family: "Georgia", serif;
+  font-size: 0.95rem;
+  color: #5a4a42;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.about-historia-img {
+  width: 340px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+/* VALORES */
+.about-valores {
+  background-color: #ffffff;
+  padding: 60px 80px;
+}
+
+.about-valores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+

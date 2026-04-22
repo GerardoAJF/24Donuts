@@ -1,0 +1,32 @@
+.terms-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.terms-page-content {
+  background-color: #2a2018;
+  padding: 40px 0;
+  flex: 1;
+}
+
+.terms-page-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.terms-page-inner .seccion {
+  max-width: 100%;
+}
+
+.terms-page-inner .seccion-titulo {
+  font-size: 2rem;
+}
+
+.terms-page-inner .seccion-descripcion {
+  font-size: 1rem;
+}

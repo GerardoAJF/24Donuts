@@ -16,6 +16,14 @@
     width: 50px;
     margin-bottom: 8px;
   }
+
+  .tarjeta-icono-react {
+    color: #3b312b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   .tarjeta-titulo {
     font-size: 14px;

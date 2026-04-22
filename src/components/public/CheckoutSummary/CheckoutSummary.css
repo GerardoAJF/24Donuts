@@ -1,0 +1,49 @@
+.checkout-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 32px 36px;
+  background-color: #3b312b;
+  border-radius: 20px;
+  width: 280px;
+  align-self: stretch;
+}
+
+.checkout-summary-total {
+  font-family: "Georgia", serif;
+  font-size: 1.4rem;
+  color: #e8ddd5;
+  margin: 0;
+}
+
+.checkout-summary-total span {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.checkout-summary .delivery-checkbox-label {
+  color: #e8ddd5;
+  font-size: 1rem;
+}
+
+.checkout-summary .delivery-checkbox-input {
+  width: 18px;
+  height: 18px;
+  accent-color: #e8ddd5;
+}
+
+.checkout-summary .boton-primario {
+  background-color: #c9b8b8;
+  color: #3b312b;
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  display: block;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.checkout-summary .boton-primario:hover {
+  background-color: #d4c4c4;
+}
