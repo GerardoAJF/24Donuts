@@ -1,6 +1,6 @@
 import Navbar from "../../../components/public/Navbar/Navbar";
 import HeroBanner from "../../../components/public/HeroBanner/HeroBanner";
-import Seccion from "../../../components/public/seccion/seccion";
+import Seccion from "../../../components/public/seccion/Seccion";
 import Footer from "../../../components/public/Foteer/Foteer";
 import "./TermsAndConditions.css";
 
