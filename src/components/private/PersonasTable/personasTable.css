@@ -1,0 +1,30 @@
+.personasTable-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.personasTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: serif;
+}
+
+.personasTable th {
+  background-color: #322827;
+  color: #dfcecb;
+  padding: 12px;
+  font-weight: normal;
+}
+
+.personasTable td {
+  background-color: #b08682; 
+  color: #322827;
+  padding: 12px;
+  border-bottom: 2px solid #e5d8d6;
+}
+
+.table-link {
+  color: #322827;
+  text-decoration: underline;
+}

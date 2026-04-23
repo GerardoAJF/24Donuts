@@ -1,0 +1,40 @@
+.adminSearch-container {
+  display: flex;
+  background-color: #a87b77; 
+  border-radius: 25px;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden; 
+}
+
+.adminSearch-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding-left: 20px;
+  color: #322827;
+  font-family: serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.adminSearch-input::placeholder {
+  color: #5a4a49;
+}
+
+.adminSearch-btn {
+  background-color: #322827; 
+  color: #dfcecb;
+  border: none;
+  width: 60px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.adminSearch-btn:hover {
+  background-color: #433635;
+}

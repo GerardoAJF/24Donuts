@@ -1,0 +1,34 @@
+.roleTabs-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.roleTabs-bar {
+  display: flex;
+  background-color: #a87b77; 
+  border-radius: 25px;
+  padding: 4px; 
+  gap: 10px;
+  width: 100%;
+}
+
+.roleTabs-btn {
+  border-radius: 20px;
+  padding: 6px 20px;
+  border: none;
+  font-family: serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roleTabs-btn.active {
+  background-color: #322827; 
+  color: #dfcecb;
+}
+
+/* Estado inactivo */
+.roleTabs-btn:not(.active) {
+  background-color: #dfcecb;
+  color: #322827;
+}
