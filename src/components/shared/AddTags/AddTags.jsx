@@ -6,7 +6,7 @@ const AddTags = ({tags, onRemove, onOpenAdd }) => {
     return (
         <div className="tag-list">
             {tags.map((tag) => (
-                <SelectTag class="tag" key={tag.id} {...tag} onRemove={() => onRemove(tag.id)} />
+                <SelectTag className="tag" key={tag.id} {...tag} onRemove={() => onRemove(tag.id)} />
             ))}
             <button className="tag-list__add-btn" onClick={onOpenAdd}>
                 +

@@ -21,4 +21,5 @@ const ProductDetail = ({ image, name, tags, description, price }) => {
   );
 };
 
+
 export default ProductDetail;
