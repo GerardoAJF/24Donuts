@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../../components/public/Navbar/Navbar";
 import CartItem from "../../../components/public/CartItem/CartItem";
 import CheckoutSummary from "../../../components/public/CheckoutSummary/CheckoutSummary";
@@ -15,12 +16,14 @@ const items = [
 ];
 
 const ShoppingCart = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="shopping-cart-page">
       <Navbar />
       <main className="shopping-cart-main">
         <div className="shopping-cart-left">
-          <BotonPrimario>
+          <BotonPrimario onClick={() => navigate("/menu")}>
             <FaChevronLeft size={12} /> Seguir Comprando
           </BotonPrimario>
           <div className="shopping-cart-items">
@@ -30,7 +33,7 @@ const ShoppingCart = () => {
           </div>
         </div>
         <div className="shopping-cart-right">
-          <CheckoutSummary total={16.44} />
+          <CheckoutSummary total={16.44} onFinalize={() => navigate("/checkout")} />
         </div>
       </main>
       <Footer />
