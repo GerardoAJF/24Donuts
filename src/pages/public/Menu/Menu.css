@@ -1,0 +1,32 @@
+.menu-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.menu-main {
+  flex: 1;
+  padding: 32px 48px;
+  background-color: #f5f0eb;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-filters-label {
+  font-family: "Georgia", serif;
+  font-size: 0.95rem;
+  color: #3b312b;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}

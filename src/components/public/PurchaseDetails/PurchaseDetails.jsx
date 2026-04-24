@@ -1,7 +1,7 @@
-import BotonPrimario from "../Boton/Boton";
+import BotonPrimario from "../../shared/Boton/Boton";
 import DeliveryCheckbox from "../DeliveryCheckbox/DeliveryCheckbox";
-import InputCustom from "../Input/Input";
-import SelectField from "../SelectField/SelectField";
+import InputCustom from "../../shared/InputCustom/Input";
+import SelectField from "../../shared/SelectField/SelectField";
 import "./PurchaseDetails.css";
 
 function PurchaseDetails() {
