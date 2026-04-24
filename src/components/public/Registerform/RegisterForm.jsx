@@ -1,9 +1,9 @@
 import './RegisterForm.css';
 
-import imagenDonuts from '../../assets/donuts.png'; 
-import BotonPrimario from '../Boton/Boton.jsx'; 
-import InputCustom from '../Input/Input.jsx';
-import InputPassword from '../InputPassword/InputPass.jsx';
+import imagenDonuts from '../../../assets/donuts.png'; 
+import BotonPrimario from '../../shared/Boton/Boton.jsx'; 
+import InputCustom from '../../shared/InputCustom/Input.jsx';
+import InputPassword from '../../shared/InputPassword/InputPass.jsx';
 
 function RegisterForm() {
   return (

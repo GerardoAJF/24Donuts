@@ -1,51 +1,44 @@
-/* RegistrateForm.css */
-
-/* Estilos globales rápidos (puedes mover esto a tu index.css) */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f4; /* Color de fondo gris claro de la imagen */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+/* RegisterForm.css */
 
 /* Contenedor principal del formulario */
 .registro-container {
   display: flex;
-  width: 900px; /* Ancho máximo aproximado */
-  max-width: 95%; /* Adaptable a pantallas más pequeñas */
+  width: 1000px; /* Un poco más ancho para que la fila de nombres no se vea apretada */
+  max-width: 95%;
   background-color: #fff;
-  border-radius: 10px; /* Esquinas ligeramente redondeadas para todo el bloque */
-  overflow: hidden; /* Asegura que la imagen no se salga de las esquinas redondeadas */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidad */
+  border-radius: 10px;
+  overflow: hidden;
+  /* Sombra más marcada para resaltar sobre el fondo #c4a4a1 de la página */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
+  margin: 0 auto;
 }
 
 /* --- Sección Izquierda: Imagen --- */
 .registro-imagen-seccion {
-  flex: 1; /* Ocupa la mitad del espacio */
-  background-color: #e6e6e6; /* Color de fondo si la imagen no carga */
+  flex: 1; /* Ocupa la mitad */
+  line-height: 0;
 }
 
 .registro-imagen {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ajusta la imagen sin deformarla */
+  object-fit: cover;
+  display: block;
 }
 
 /* --- Sección Derecha: Formulario --- */
 .registro-formulario-seccion {
-  flex: 1; /* Ocupa la otra mitad del espacio */
-  padding: 40px 50px; /* Espaciado interno generoso */
+  flex: 1.2; /* Le damos un poco más de peso visual al lado del texto */
+  padding: 40px 50px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .registro-titulo {
   margin-top: 0;
   margin-bottom: 25px;
-  font-family: 'Georgia', serif; /* Fuente similar a la de la imagen */
+  font-family: 'Georgia', serif;
   font-weight: 500;
   font-size: 2.2rem;
   color: #333;
@@ -54,84 +47,55 @@ body {
 /* Estilo para las filas de inputs (Nombres/Apellidos) */
 .formulario-fila {
   display: flex;
-  gap: 20px; /* Espacio entre los dos inputs */
-  margin-bottom: -10px; /* Pequeño ajuste para que no haya demasiado espacio vertical */
+  gap: 20px;
+  margin-bottom: 5px; /* Ajustado para mantener ritmo con los inputs simples */
 }
 
-/* Asegurar que los inputs individuales tomen el ancho completo de su columna en una fila */
-.formulario-fila .input-container {
+.formulario-fila > div {
   flex: 1;
 }
 
-/* Estilos específicos para los componentes hijos (InputCustom, InputPassword) */
-/* (Asegúrate de que tus archivos CSS originales tengan estos selectores) */
-
+/* Ajustes de espaciado para los componentes de input */
 .input-container {
-  margin-bottom: 15px; /* Espacio vertical entre campos */
-}
-
-.input-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #333;
-}
-
-/* ESTILO CLAVE PARA LOGRAR EL EFECTO DE LA IMAGEN (en tus archivos originales) */
-.input-field,
-.password-input {
-  width: 100%;
-  padding: 12px 20px;
-  border: 1px solid #dcdcdc; /* Borde gris claro */
-  border-radius: 25px; /* ESQUINAS MUY REDONDEADAS COMO EN LA IMAGEN */
-  font-size: 1rem;
-  transition: border-color 0.2s;
-  box-sizing: border-box; /* Importante para el padding */
-}
-
-.input-field:focus,
-.password-input:focus {
-  outline: none;
-  border-color: #888; /* Borde más oscuro al enfocar */
-}
-
-.password-wrapper {
-  position: relative;
-}
-
-.eye-icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #777;
-  padding: 0;
+  margin-bottom: 15px;
 }
 
 /* --- Botón de envío --- */
 .formulario-boton-wrapper {
-  margin-top: auto; /* Empuja el botón al final de su columna si el contenido es corto */
-  padding-top: 30px;
+  text-align: center; /* Centra el botón como se ve en la imagen */
+  margin-top: 20px;
+  padding-top: 10px;
 }
 
-/* ESTILO ESPECÍFICO DEL BOTÓN (para que coincida con la imagen) */
-.boton-primario {
-  width: auto; /* Ancho auto, no 100% como el input */
-  padding: 12px 50px; /* Padding generoso a los lados */
-  background-color: #3e3333; /* Color marrón oscuro de la imagen */
-  color: #fff;
+/* Estilo para asegurar que el botón herede el look de "pastilla" */
+.formulario-boton-wrapper button {
+  padding: 12px 60px;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  background-color: #3e3333;
+  color: white;
   border: none;
-  border-radius: 25px; /* Esquinas redondeadas como pastilla */
-  font-size: 1.2rem;
-  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
 }
 
-.boton-primario:hover {
+.formulario-boton-wrapper button:hover {
   background-color: #2e2626;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 850px) {
+  .registro-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .registro-imagen-seccion {
+    display: none; /* Oculta imagen en móviles para prioridad al registro */
+  }
+
+  .formulario-fila {
+    flex-direction: column;
+    gap: 0;
+  }
 }

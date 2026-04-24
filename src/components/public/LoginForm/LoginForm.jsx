@@ -1,9 +1,9 @@
 import './LoginForm.css';
 
-import BotonPrimario from '../Boton/Boton.jsx'; 
-import InputCustom from '../Input/Input.jsx';
-import InputPassword from '../InputPassword/InputPass.jsx';
-import imagenLoginDonuts from '../../assets/donuts-colores.png'; 
+import BotonPrimario from '../../shared/Boton/Boton.jsx'; 
+import InputCustom from '../../shared/InputCustom/Input.jsx';
+import InputPassword from '../../shared/InputPassword/InputPass.jsx';
+import imagenLoginDonuts from '../../../assets/donuts-colores.png'; 
 
 function LoginForm() {
   const handleLoginSubmit = (event) => {
