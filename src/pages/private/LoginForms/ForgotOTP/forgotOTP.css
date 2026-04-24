@@ -1,0 +1,9 @@
+.page-container {
+  background-color: #3e3332; /* El color café oscuro */
+  min-height: 100vh;         /* Ocupa todo el alto de la pantalla */
+  width: 100%;
+  display: flex;             /* Activa el centrado */
+  justify-content: center;   /* Centra horizontal */
+  align-items: center;       /* Centra vertical */
+  margin: 0;
+}

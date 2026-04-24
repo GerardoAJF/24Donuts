@@ -1,0 +1,15 @@
+.page-container {
+  background-color: #3e3332; 
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.btn-spacing {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

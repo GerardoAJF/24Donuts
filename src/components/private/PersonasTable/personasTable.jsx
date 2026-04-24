@@ -18,8 +18,8 @@ const PersonasTable = ({ data }) => {
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              <td>{row.nombres}</td>
-              <td>{row.apellidos}</td>
+              <td>{row.nombre}</td>
+              <td>{row.apellido}</td>
               <td><a href={`mailto:${row.correo}`} className="table-link">{row.correo}</a></td>
               <td>{row.telefono}</td>
               <td><ActionIcons /></td>
