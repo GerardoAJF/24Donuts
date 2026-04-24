@@ -1,0 +1,11 @@
+/* PromotionsTab.css */
+.promotions-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.promotions-tab__footer {
+  display: flex;
+  justify-content: flex-end;
+}

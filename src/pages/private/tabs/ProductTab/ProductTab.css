@@ -1,0 +1,29 @@
+/* ProductsTab.css */
+.products-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.products-tab__tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.products-tab__tags-label {
+  font-size: 14px;
+  color: #D8C4C4;
+  white-space: nowrap;
+}
+
+.products-tab__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+}
+
+.products-tab__footer {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,6 +1,6 @@
 // ProductCard.jsx
 import React from "react";
-import AddTags from "../AddTags/AddTags.jsx";
+import AddTags from "../../shared/AddTags/AddTags.jsx";
 import "./ProductCard.css";
 
 const ProductCard = ({ image, name, description, price, tags, onEdit, onDelete, onRemoveTag, onOpenAddTag }) => {
