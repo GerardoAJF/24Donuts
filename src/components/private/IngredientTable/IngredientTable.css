@@ -1,20 +1,20 @@
-/* PromoTable.css */
-.promo-table__wrapper {
+/* IngredientTable.css */
+.ingredient-table__wrapper {
   border-radius: 12px;
   overflow: hidden;
 }
 
-.promo-table {
+.ingredient-table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
 }
 
-.promo-table__header {
+.ingredient-table__header {
   background: #3E3232;
 }
 
-.promo-table__header th {
+.ingredient-table__header th {
   padding: 10px 16px;
   font-size: 16px;
   font-weight: 500;
@@ -22,40 +22,38 @@
   text-align: center;
 }
 
-.promo-table__row {
+.ingredient-table__row {
   background: #A87C7C;
+  cursor: default;
 }
 
-.promo-table__row:nth-child(even) {
+.ingredient-table__row:nth-child(even) {
   background: #C4A0A0;
 }
 
-.promo-table__row td {
-  padding: 10px 16px;
+.ingredient-table__row td {
+  padding: 12px 16px;
   font-size: 16px;
   color: #3E3232;
   text-align: center;
-}
-
-.promo-table__truncate {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.promo-table__actions {
+.ingredient-table__actions {
   display: flex;
   gap: 6px;
   justify-content: center;
 }
 
-.promo-table__actions svg {
+.ingredient-table__actions svg {
   width: 20px;
   height: 20px;
   stroke: #D8C4C4;
 }
 
-.promo-table__btn {
+.ingredient-table__btn {
   background: #3E3232;
   width: 30px;
   height: 30px;
@@ -66,10 +64,10 @@
   transition: background 0.15s;
 }
 
-.promo-table__btn:hover {
+.ingredient-table__btn:hover {
   background: #D8C4C4;
 }
 
-.promo-table__btn:hover svg {
+.ingredient-table__btn:hover svg {
   stroke: #3E3232;
 }

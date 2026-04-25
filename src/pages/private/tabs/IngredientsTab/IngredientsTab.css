@@ -1,0 +1,11 @@
+/* IngredientsTab.css */
+.ingredients-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ingredients-tab__footer {
+  display: flex;
+  justify-content: flex-end;
+}

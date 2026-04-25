@@ -1,13 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './mailPasswordBox.css';
 
-const MailPasswordBox = () => {
+const MailPasswordBox = ({ onPinChange }) => {
   const [pin, setPin] = useState(new Array(6).fill(""));
   const inputRefs = useRef([]);
 
+  useEffect(() => {
+    if (onPinChange) {
+      onPinChange(pin.join(""));
+    }
+  }, [pin, onPinChange]);
+
   const handleChange = (e, index) => {
     const value = e.target.value;
-    
     if (isNaN(value)) return;
 
     const newPin = [...pin];
@@ -28,7 +33,6 @@ const MailPasswordBox = () => {
   const handlePaste = (e) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").slice(0, 6).split("");
-    
     if (pastedData.some(isNaN)) return;
 
     const newPin = [...pin];
@@ -42,27 +46,20 @@ const MailPasswordBox = () => {
   };
 
   return (
-    <div className="container">
-      <p className="text">
-        Ingrese el pin que se le acaba de enviar al<br />
-        correo <strong>jhon.doe@gmail.com</strong>
-      </p>
-
-      <div className="inputContainer">
-        {pin.map((data, index) => (
-          <input
-            key={index}
-            type="text"
-            maxLength={1}
-            ref={(el) => (inputRefs.current[index] = el)}
-            value={data}
-            onChange={(e) => handleChange(e, index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            onPaste={handlePaste}
-            className="input"
-          />
-        ))}
-      </div>
+    <div className="otp-container" style={{ display: 'flex', gap: '8px', justifyContent: 'center', margin: '20px 0' }}>
+      {pin.map((data, index) => (
+        <input
+          key={index}
+          type="text"
+          maxLength={1}
+          ref={(el) => (inputRefs.current[index] = el)}
+          value={data}
+          onChange={(e) => handleChange(e, index)}
+          onKeyDown={(e) => handleKeyDown(e, index)}
+          onPaste={handlePaste}
+          className="input-otp-box" 
+        />
+      ))}
     </div>
   );
 };

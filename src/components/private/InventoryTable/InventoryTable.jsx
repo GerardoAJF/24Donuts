@@ -40,8 +40,10 @@ const InventoryTable = ({ entries, onEdit, onDelete }) => {
                     {entries.map((entry) => (
                         <InventoryRow
                             key={entry.id}
-                            {...entry}
-                            onEdit={() => onEdit(entry.id)}
+                            date={entry.fechaCompra}
+                            ingredients={entry.ingredientes}
+                            total={entry.total}
+                            onEdit={() => onEdit(entry)}
                             onDelete={() => onDelete(entry.id)}
                         />
                     ))}

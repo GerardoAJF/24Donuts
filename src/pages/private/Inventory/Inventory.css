@@ -1,5 +1,5 @@
-/* Sales.css */
-.sales {
+/* Inventory.css */
+.inventory {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -9,18 +9,17 @@
   
   min-height: 100vh;
   
-
   width: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
-.sales__title {
+.inventory__title {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: #D8C4C4;
   margin: 0;
 }
 
-.sales__content {
+.inventory__content {
   display: flex;
   flex-direction: column;
   gap: 16px;

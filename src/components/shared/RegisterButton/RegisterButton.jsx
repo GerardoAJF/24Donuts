@@ -1,12 +1,13 @@
 import React from 'react';
-import './RegisterButton.css';
+import './registerButton.css';
 
-const RegisterButton = () => {
+const Boton = ({ text, onClick }) => {
   return (
-    <button className="registerButton">
-      Registrarse
+    
+    <button className="registerButton" onClick={onClick}>
+      {text}
     </button>
   );
 };
 
-export default RegisterButton;
+export default Boton;

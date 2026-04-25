@@ -1,64 +1,60 @@
-.baseWindow-card {
-  background-color: #d8c3c1;
+.base-window-card {
+  background-color: #dfcecb; 
   border-radius: 20px;
-  padding: 30px 40px;
-  width: 320px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  padding: 30px 25px;
+  width: 320px; 
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 0 4px 10px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
 }
 
-.baseWindow-logo-container {
+.base-window-logo-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
 }
 
-.baseWindow-logo {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.base-window-logo {
+  width: 160px; 
+  height: auto;
+}
+
+.base-window-header {
+  text-align: center;
+  width: 100%;
+  color: #322827;
+  margin-bottom: 20px;
+}
+
+.base-window-title {
   font-family: serif;
-  color: #433635;
-}
-
-.logo-text {
-  font-size: 24px;
-}
-
-.logo-main {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.logo-house {
-  background-color: #433635;
-  color: #d8c3c1;
-  padding: 8px 6px 4px 6px;
-  font-size: 16px;
-  font-weight: bold;
-  clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 0% 100%, 0% 35%);
-  margin-left: 2px;
-}
-
-.baseWindow-title {
-  font-family: serif;
-  color: #433635;
-  font-size: 20px;
-  margin: 0 0 5px 0;
+  font-size: 22px;
   font-weight: normal;
+  margin: 0 0 4px 0;
 }
 
-.baseWindow-subtitle {
-  font-family: sans-serif;
-  color: #6b5b5a;
-  font-size: 9px;
-  margin: 0 0 25px 0;
+.base-window-subtitle {
+  font-family: serif;
+  font-size: 10px;
+  margin: 0 0 8px 0;
+  opacity: 0.8;
 }
 
-.baseWindow-content {
+.base-window-divider {
+  border: none;
+  border-top: 1px solid #322827;
+  width: 80%;
+  margin: 0 auto;
+  opacity: 0.3;
+}
+
+.base-window-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  gap: 15px;
 }

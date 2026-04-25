@@ -1,19 +1,23 @@
 import React from 'react';
-import './baseWindowCard.css';
+import './BaseWindowCard.css';
+import logo from '../../../assets/logo.svg';
 
 const BaseWindowCard = ({ title, subtitle, children }) => {
   return (
-    <div className="baseWindow-card">
-      <div className="baseWindow-logo-container">
-        <div className="baseWindow-logo">
-          <span className="logo-text">24</span>
-          <span className="logo-main">DONUTS</span>
-          <div className="logo-house">24</div>
-        </div>
+    <div className="base-window-card">
+      <div className="base-window-logo-container">
+        <img src={logo} alt="24 Donuts Logo" className="base-window-logo" />
       </div>
-      {title && <h2 className="baseWindow-title">{title}</h2>}
-      {subtitle && <p className="baseWindow-subtitle">{subtitle}</p>}
-      <div className="baseWindow-content">
+
+     
+      <div className="base-window-header">
+        <h2 className="base-window-title">{title}</h2>
+        {subtitle && <p className="base-window-subtitle">{subtitle}</p>}
+        <hr className="base-window-divider" />
+      </div>
+
+  
+      <div className="base-window-content">
         {children}
       </div>
     </div>
