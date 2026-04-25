@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/private/NavBar/Navbar.jsx";
 import Sales from "../pages/private/Sales/Sales.jsx";
+import Inventory from "../pages/private/Inventory/Inventory.jsx";
 import TagManagerForm from "../pages/private/forms/TagManagerForm/TagManagerForm.jsx";
 import TagForm from "../pages/private/forms/TagForm/TagForm.jsx";
 import ProductForm from "../pages/private/forms/ProductForm/ProductForm.jsx";
 import PromoForm from "../pages/private/forms/PromoForm/PromoForm.jsx";
+import IngredientForm from "../pages/private/forms/IngredientForm/IngredientForm.jsx";
+import ExpenseForm from "../pages/private/forms/ExpenseForm/ExpenseForm.jsx";
 import Modal from "../components/shared/Modal/Modal.jsx";
 
 const AdminRouter = () => {
@@ -78,6 +81,26 @@ const AdminRouter = () => {
         },
     ]);
 
+    const [ingredients, setIngredients] = useState([
+        { id: 1, nombre: "Cajas de huevo", stock: 10 },
+        { id: 2, nombre: "Bolsas de azúcar", stock: 15 },
+        { id: 3, nombre: "Bolsas de harina", stock: 30 },
+        { id: 4, nombre: "Botellas de leche", stock: 25 },
+    ]);
+
+    const [expenses, setExpenses] = useState([
+        {
+            id: 1,
+            fechaCompra: "2026/02/20",
+            total: 100,
+            ingredientes: [
+                { id: 1, nombre: "Cajas de huevo", cantidad: 5, subtotal: 10 },
+                { id: 2, nombre: "Bolsas de harina", cantidad: 3, subtotal: 6 },
+                { id: 3, nombre: "Bolsas de leche", cantidad: 2, subtotal: 3 },
+            ],
+        },
+    ]);
+
     // =========================================================
     // MODAL STATE
     // =========================================================
@@ -92,6 +115,11 @@ const AdminRouter = () => {
 
     const [promoFormOpen, setPromoFormOpen] = useState(false);
     const [editingPromo, setEditingPromo] = useState(null);
+
+    const [ingredientFormOpen, setIngredientFormOpen] = useState(false);
+    const [editingIngredient, setEditingIngredient] = useState(null);
+    const [expenseFormOpen, setExpenseFormOpen] = useState(false);
+    const [editingExpense, setEditingExpense] = useState(null);
 
     // =========================================================
     // PRODUCT HANDLERS
@@ -201,6 +229,70 @@ const AdminRouter = () => {
     };
 
     // =========================================================
+    // INGREDIENTS HANDLERS
+    // =========================================================
+    const handleInsertIngredient = () => {
+        setEditingIngredient(null);
+        setIngredientFormOpen(true);
+    };
+
+    const handleEditIngredient = (ingredient) => {
+        setEditingIngredient(ingredient);
+        setIngredientFormOpen(true);
+    };
+
+    const handleDeleteIngredient = (id) => {
+        setIngredients(ingredients.filter((i) => i.id !== id));
+    };
+
+    const handleIngredientSubmit = ({ id, nombre, cantidad }) => {
+        if (id) {
+            setIngredients(ingredients.map((i) =>
+                i.id === id ? { ...i, nombre, stock: cantidad } : i
+            ));
+        } else {
+            setIngredients([...ingredients, {
+                id: Date.now(),
+                nombre,
+                stock: cantidad,
+            }]);
+        }
+        setIngredientFormOpen(false);
+    };
+
+    // =========================================================
+    // EXPENSE HANDLERS
+    // =========================================================
+    const handleInsertExpense = () => {
+        setEditingExpense(null);
+        setExpenseFormOpen(true);
+    };
+
+    const handleEditExpense = (expense) => {
+        setEditingExpense(expense);
+        setExpenseFormOpen(true);
+    };
+
+    const handleDeleteExpense = (id) => {
+        setExpenses(expenses.filter((e) => e.id !== id));
+    };
+
+    const handleExpenseSubmit = ({ id, fechaCompra, ingredientes }) => {
+        const total = ingredientes.reduce((acc, i) => acc + i.subtotal, 0);
+        if (id) {
+            setExpenses(expenses.map((e) =>
+                e.id === id ? { ...e, fechaCompra, ingredientes, total } : e
+            ));
+        } else {
+            setExpenses([...expenses, {
+                id: Date.now(),
+                fechaCompra, ingredientes, total,
+            }]);
+        }
+        setExpenseFormOpen(false);
+    };
+
+    // =========================================================
     // TAG HANDLERS
     // =========================================================
 
@@ -280,8 +372,24 @@ const AdminRouter = () => {
                         />
                     }
                 />
+                <Route
+                    path="/inventory"
+                    element={
+                        <Inventory
+                            ingredients={ingredients}
+                            onInsertIngredient={handleInsertIngredient}
+                            onEditIngredient={handleEditIngredient}
+                            onDeleteIngredient={handleDeleteIngredient}
+                            expenses={expenses}
+                            onInsertExpense={handleInsertExpense}
+                            onEditExpense={handleEditExpense}
+                            onDeleteExpense={handleDeleteExpense}
+                        />
+                    }
+                />
             </Routes>
 
+            {/* Product modals */}
             {productFormOpen && (
                 <Modal onClose={() => setProductFormOpen(false)}>
                     <ProductForm
@@ -292,6 +400,7 @@ const AdminRouter = () => {
                 </Modal>
             )}
 
+            {/* Tag modals */}
             {tagManagerOpen && (
                 <Modal onClose={() => setTagManagerOpen(false)}>
                     <TagManagerForm
@@ -315,6 +424,7 @@ const AdminRouter = () => {
                 </Modal>
             )}
 
+            {/* Promo modals */}
             {promoFormOpen && (
                 <Modal onClose={() => setPromoFormOpen(false)}>
                     <PromoForm
@@ -326,8 +436,48 @@ const AdminRouter = () => {
                     />
                 </Modal>
             )}
+
+            {/* Ingredient modals */}
+            {ingredientFormOpen && (
+                <Modal onClose={() => setIngredientFormOpen(false)}>
+                    <IngredientForm
+                        initialData={editingIngredient}
+                        onSubmit={handleIngredientSubmit}
+                        onClose={() => setIngredientFormOpen(false)}
+                    />
+                </Modal>
+            )}
+
+            {/* Expense modals */}
+            {expenseFormOpen && (
+                <Modal onClose={() => setExpenseFormOpen(false)}>
+                    <ExpenseForm
+                        initialData={editingExpense}
+                        allIngredients={ingredients}
+                        onSubmit={handleExpenseSubmit}
+                        onClose={() => setExpenseFormOpen(false)}
+                    />
+                </Modal>
+            )}
         </>
     );
 };
 
 export default AdminRouter;
+
+/*
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import AdminRouter from "./router/AdminRouter.jsx";
+import "./App.css"
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <AdminRouter />
+        </BrowserRouter>
+    );
+};
+
+export default App;
+*/

@@ -1,0 +1,11 @@
+/* ExpensesTab.css */
+.expenses-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.expenses-tab__footer {
+  display: flex;
+  justify-content: flex-end;
+}

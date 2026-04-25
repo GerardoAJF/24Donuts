@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProductSummaryBar from "../ProductSummaryBar/ProductSummaryBar.jsx";
 import "./InventoryRow.css";
 
+// InventoryRow.jsx
 const InventoryRow = ({ date, ingredients, total, onEdit, onDelete }) => {
     const [open, setOpen] = useState(false);
 
@@ -27,7 +28,10 @@ const InventoryRow = ({ date, ingredients, total, onEdit, onDelete }) => {
                 <tr className="inventory-row__expanded">
                     <td colSpan={5}>
                         <div className="inventory-row__detail">
-                            <ProductSummaryBar title="Ingredientes" products={ingredients} />
+                            <ProductSummaryBar
+                                title="Ingredientes"
+                                products={ingredients}
+                            />
                         </div>
                     </td>
                 </tr>
