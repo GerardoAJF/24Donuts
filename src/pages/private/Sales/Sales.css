@@ -4,13 +4,19 @@
   flex-direction: column;
   gap: 20px;
   padding: 28px 32px;
-  background: transparent;
+  
+  background: #584948; 
+  
   min-height: 100vh;
+  
+
+  width: 100%;
+  box-sizing: border-box; 
 }
 
 .sales__title {
   font-size: 2.5rem;
-  color: #D8C4C4;
+  color: #ffffff;
   margin: 0;
 }
 

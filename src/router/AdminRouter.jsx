@@ -10,7 +10,10 @@ import ProductForm from "../pages/private/forms/ProductForm/ProductForm.jsx";
 import PromoForm from "../pages/private/forms/PromoForm/PromoForm.jsx";
 import IngredientForm from "../pages/private/forms/IngredientForm/IngredientForm.jsx";
 import ExpenseForm from "../pages/private/forms/ExpenseForm/ExpenseForm.jsx";
+import Personas from "../pages/private/personas/personas.jsx";
 import Modal from "../components/shared/Modal/Modal.jsx";
+import AdminForms from '../pages/private/FormularioPersonas/empleadoForms.jsx';
+import EmpleadoForms from '../pages/private/FormularioPersonas/empleadoForms.jsx';
 
 const AdminRouter = () => {
 
@@ -349,6 +352,11 @@ const AdminRouter = () => {
             <Navbar />
 
             <Routes>
+                
+                <Route path="personas/nuevo-admin" element={<AdminForms />} />
+  <Route path="personas/nuevo-empleado" element={<EmpleadoForms />} />
+  <Route path="people" element={<Personas />} />
+    
                 <Route
                     path="/sales"
                     element={

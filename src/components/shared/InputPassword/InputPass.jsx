@@ -24,9 +24,7 @@ function InputPassword({ label, showForgotLink = true }) {
         </button>
       </div>
 
-      {showForgotLink && (
-        <a href="#" className="forgot-link">¿Olvidaste tu contraseña?</a>
-      )}
+    
     </div>
   );
 }

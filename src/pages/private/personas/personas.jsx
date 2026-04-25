@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
-import Navbar from '../../../components/private/Navbar/Navbar';
+import { useNavigate } from 'react-router-dom';
 import PersonasTable from '../../../components/private/PersonasTable/personasTable';
-import Boton from '../../../components/shared/Boton/Boton';
+import Boton from '../../../components/shared/RegisterButton/RegisterButton';
 import './Personas.css';
 
 const Personas = () => {
   const [view, setView] = useState('Administradores');
+  const navigate = useNavigate();
 
- 
   const labels = {
     'Administradores': 'administrador',
     'Empleados': 'empleado',
     'Clientes': 'cliente'
+  };
+
+  const handleInsertarClick = () => {
+    if (view === 'Administradores') {
+      navigate('/admin/personas/nuevo-admin');
+    } else if (view === 'Empleados') {
+      navigate('/admin/personas/nuevo-empleado');
+    } else if (view === 'Clientes') {
+      alert("La vista de nuevo cliente aún no está conectada"); 
+    }
   };
 
   const dataFake = [
@@ -37,8 +47,6 @@ const Personas = () => {
 
   return (
     <div className="personas-page">
-      <Navbar />
-
       <div className="personas-content">
         <h1 className="personas-title">Personas</h1>
 
@@ -99,7 +107,10 @@ const Personas = () => {
         </div>
 
         <div className="footer-actions">
-          <Boton text={`Insertar ${labels[view].charAt(0).toUpperCase() + labels[view].slice(1)}`} />
+          <Boton 
+            text={`Insertar ${labels[view].charAt(0).toUpperCase() + labels[view].slice(1)}`} 
+            onClick={handleInsertarClick}
+          />
         </div>
       </div>
     </div>

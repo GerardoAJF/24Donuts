@@ -4,8 +4,13 @@
   flex-direction: column;
   gap: 20px;
   padding: 28px 32px;
-  background: transparent;
+  
+  background: #584948; 
+  
   min-height: 100vh;
+  
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inventory__title {

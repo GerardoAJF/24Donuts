@@ -1,10 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ForgotEmail.css';
 import BaseWindowCard from '../../../../components/private/BaseWindowCard/baseWindowCard';
 import InputCustom from '../../../../components/shared/InputCustom/Input';
 import Boton from '../../../../components/shared/RegisterButton/RegisterButton';
 
 const ForgotEmail = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    navigate('/auth/validar-pin');
+  };
+
   return (
     <div className="page-container">
       <BaseWindowCard 
@@ -14,7 +21,7 @@ const ForgotEmail = () => {
         <div className="input-wrapper">
           <InputCustom label="Correo electrónico:" />
         </div>
-        <Boton text="Continuar" />
+        <Boton text="Continuar" onClick={handleNext} />
       </BaseWindowCard>
     </div>
   );
