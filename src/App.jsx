@@ -11,7 +11,6 @@ const App = () => {
             <Routes>
                 <Route path="/auth/*" element={<LoginRouter />} />
                 <Route path="/admin/*" element={<AdminRouter />} />
-                <Route path="/*" element={<PublicRouter />} />
                 <Route path="/" element={<Navigate to="/auth/registro-inicial" />} />
                 <Route path="*" element={<Navigate to="/auth/registro-inicial" />} />
             </Routes>
