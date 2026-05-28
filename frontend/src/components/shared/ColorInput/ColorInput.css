@@ -1,0 +1,39 @@
+/* ColorInput.css */
+.color-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.color-input__label {
+  font-size: 1.1rem;
+  color: #4a3f35;
+  margin-left: 8px;
+}
+
+.color-input__grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 6px 10px;
+  padding: 4px;
+}
+
+.color-input__swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.color-input__swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-input__swatch--selected {
+  border-color: #4a3f35;
+  transform: scale(1.1);
+}

@@ -1,0 +1,113 @@
+.product-card {
+  display: flex;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #2e2424;
+  border: 1px solid #4a3535;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+
+.product-card__image-wrap {
+  width: 140px;
+  min-height: 160px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #3e3232;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.product-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background-color: #3e3232;
+  padding: 10px 14px;
+  border-bottom: 1px solid #4a3535;
+}
+
+.product-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #d8c4c4;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-card__actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.product-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.product-card__btn--edit svg { stroke: #b8a0a0; }
+.product-card__btn--delete svg { stroke: #b8a0a0; }
+
+.product-card__btn--edit:hover { background: #4a3535; }
+.product-card__btn--edit:hover svg { stroke: #d8c4c4; }
+
+.product-card__btn--delete:hover { background: #5c2e2e; }
+.product-card__btn--delete:hover svg { stroke: #e08080; }
+
+.product-card__body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.product-card__description {
+  font-size: 13px;
+  color: #b8a0a0;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card__price {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3e3232;
+  background: #d8c4c4;
+  padding: 4px 10px;
+  border-radius: 20px;
+  align-self: flex-start;
+  margin-top: auto;
+}

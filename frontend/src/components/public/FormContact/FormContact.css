@@ -1,0 +1,52 @@
+.card-formulario {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 30px; /* Bordes muy redondeados como la imagen */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 20px auto;
+    font-family: 'Georgia', serif;
+  }
+  
+  .titulo-formulario {
+    text-align: center;
+    color: #4a3f35;
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .contenido-formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .columna-izquierda {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Estilo para el área del mensaje */
+  .textarea-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .textarea-field {
+    height: 100%; /* Para que ocupe el alto de la columna izquierda */
+    min-height: 150px;
+    border-radius: 20px;
+    border: 1px solid #4a3f35;
+    padding: 15px;
+    outline: none;
+    resize: none; /* Evita que el usuario lo deforme */
+    box-shadow: inset 0px 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .boton-centrado {
+    display: flex;
+    justify-content: center;
+  }

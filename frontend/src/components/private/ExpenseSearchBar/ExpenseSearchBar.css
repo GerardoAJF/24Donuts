@@ -1,0 +1,98 @@
+/* ExpenseSearchBar.css */
+.expense-search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.expense-search-bar__left {
+  flex: 1;
+  background: #A87C7C;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.expense-search-bar__name {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #3E3232;
+}
+
+.expense-search-bar__name::placeholder {
+  color: rgba(62, 50, 50, 0.5);
+}
+
+.expense-search-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #3E3232;
+  padding: 10px 16px;
+  flex-shrink: 0;
+}
+
+.expense-search-bar__filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.expense-search-bar__label {
+  font-size: 14px;
+  color: #D8C4C4;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.expense-search-bar__input {
+  width: 70px;
+  background: #C4A0A0;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #3E3232;
+}
+
+.expense-search-bar__input::-webkit-outer-spin-button,
+.expense-search-bar__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.expense-search-bar__input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.expense-search-bar__select {
+  background: #C4A0A0;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #3E3232;
+  cursor: pointer;
+}
+
+.expense-search-bar__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #D8C4C4;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+
+.expense-search-bar__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

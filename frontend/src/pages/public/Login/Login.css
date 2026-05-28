@@ -1,0 +1,24 @@
+.login-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa toda la pantalla */
+  background-color: #c4a4a1; /* El color de fondo que se ve en tu imagen */
+}
+
+.login-main-content {
+  flex: 1; /* Empuja el footer hacia abajo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Ajustes para el LoginForm dentro de esta página */
+.login-container {
+  background-color: white;
+  border-radius: 8px; /* Si quieres bordes redondeados como la imagen */
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+  width: 100%;
+}

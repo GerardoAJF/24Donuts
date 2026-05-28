@@ -1,0 +1,58 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #ffffff;
+  border: 1.5px solid #e0d5cb;
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(59, 49, 43, 0.08);
+  width: fit-content;
+}
+
+.cart-item-image {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-item-grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  column-gap: 28px;
+  row-gap: 6px;
+  justify-items: center;
+}
+
+.cart-item-label {
+  font-family: "Georgia", serif;
+  font-size: 0.82rem;
+  color: #9e8e85;
+  letter-spacing: 0.01em;
+}
+
+.cart-item-value {
+  font-family: "Georgia", serif;
+  font-size: 1.1rem;
+  color: #3b312b;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+.cart-item-name {
+  font-family: "Georgia", serif;
+  font-size: 0.88rem;
+  color: #3b312b;
+  margin: 0;
+  border-top: 1px solid #e0d5cb;
+  padding-top: 8px;
+}

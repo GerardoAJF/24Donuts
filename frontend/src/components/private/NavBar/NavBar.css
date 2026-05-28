@@ -1,0 +1,50 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #C4A0A0;
+  padding: 0 24px;
+  height: 52px;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navbar__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #3E3232;
+  transition: background 0.15s;
+}
+
+.navbar__item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.navbar__item--active {
+  background: rgba(0, 0, 0, 0.08);
+  font-weight: 500;
+}
+
+.navbar__item svg {
+  flex-shrink: 0;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo-img {
+  height: 40px;
+  object-fit: contain;
+}

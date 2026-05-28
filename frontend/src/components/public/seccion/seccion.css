@@ -1,0 +1,32 @@
+.seccion {
+    padding: 20px;
+    max-width: 600px;
+  }
+  
+  .seccion-encabezado {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+  }
+  
+  .seccion-numero {
+    font-size: 36px;
+    font-weight: bold;
+    color: #e8c84a;
+    margin-right: 15px;
+  }
+  
+  .seccion-titulo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #c8c8c8;
+    margin: 0;
+  }
+  
+  .seccion-descripcion {
+    font-size: 14px;
+    color: #b0a8a8;
+    font-weight: bold;
+    line-height: 1.6;
+  }

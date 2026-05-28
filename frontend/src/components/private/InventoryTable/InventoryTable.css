@@ -1,0 +1,23 @@
+/* InventoryTable.css */
+.inventory-table__wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.inventory-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.inventory-table__header {
+  background: #3E3232;
+}
+
+.inventory-table__header th {
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #D8C4C4;
+  text-align: center;
+}

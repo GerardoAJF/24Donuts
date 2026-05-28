@@ -1,0 +1,115 @@
+.form-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #3e3332; 
+  padding: 40px;
+}
+
+
+.form-card {
+  background-color: #C4B5B2; 
+  padding: 40px 50px;
+  border-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-card h2 {
+  color: #3e3332;
+  font-family: serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-row-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #3e3332;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-card input, 
+.form-card select {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px; 
+  font-size: 14px;
+  color: #3e3332;
+  outline: none;
+}
+
+.form-card input::placeholder {
+  color: #C4B5B2; 
+}
+
+.btn-dark {
+  background-color: #3e3332;
+  color: #C4B5B2;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 24px; 
+}
+
+.btn-insertar {
+  background-color: #3e3332;
+  color: #C4B5B2;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 40px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: center;
+  margin-top: 10px;
+}
+
+
+.days-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.day-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #3e3332;
+  color: #C4B5B2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}

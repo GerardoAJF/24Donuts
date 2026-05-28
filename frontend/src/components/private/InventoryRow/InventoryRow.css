@@ -1,0 +1,63 @@
+/* InventoryRow.css */
+.inventory-row {
+  background: #A87C7C;
+  cursor: pointer;
+  text-align: center;
+}
+
+.inventory-row td {
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #3e3232;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inventory-row:hover td {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.inventory-row__chevron {
+  font-size: 16px;
+  width: 32px;
+}
+
+.inventory-row__actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.inventory-row__actions svg {
+  width: 20px;
+  height: 20px;
+  stroke: #d8c4c4;
+}
+
+.inventory-row__btn:hover {
+  background-color: #d8c4c4;
+}
+.inventory-row__btn:hover svg {
+  stroke: #3e3232;
+}
+
+.inventory-row__btn {
+  background: #3e3232;
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 100%;
+  transition: background 0.15s;
+}
+
+.inventory-row__expanded td {
+  padding: 0;
+}
+
+.inventory-row__detail {
+  background: #a87c7c;
+}

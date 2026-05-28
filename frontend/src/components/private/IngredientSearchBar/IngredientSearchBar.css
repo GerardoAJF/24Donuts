@@ -1,0 +1,45 @@
+/* IngredientSearchBar.css */
+.ingredient-search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.ingredient-search-bar__left {
+  flex: 1;
+  background: #A87C7C;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.ingredient-search-bar__name {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #3E3232;
+}
+
+.ingredient-search-bar__name::placeholder {
+  color: rgba(62, 50, 50, 0.5);
+}
+
+.ingredient-search-bar__btn {
+  background: #3E3232;
+  border: none;
+  cursor: pointer;
+  color: #D8C4C4;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  transition: background 0.15s;
+  align-self: stretch;
+}
+
+.ingredient-search-bar__btn:hover {
+  background: #2A2020;
+}

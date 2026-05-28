@@ -1,0 +1,94 @@
+/* OrderSearchBar.css */
+.order-search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.order-search-bar__left {
+  flex: 1;
+  background: #a87c7c;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.order-search-bar__name {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #3e3232;
+}
+
+.order-search-bar__name::placeholder {
+  color: rgba(62, 50, 50, 0.5);
+}
+
+.order-search-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #3e3232;
+  padding: 10px 16px;
+  flex-shrink: 0;
+}
+
+.order-search-bar__filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.order-search-bar__label {
+  font-size: 14px;
+  color: #d8c4c4;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.order-search-bar__date {
+  background: #c4a0a0;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #3e3232;
+  cursor: pointer;
+}
+
+.order-search-bar__date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.order-search-bar__select {
+  background: #c4a0a0;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #3e3232;
+  cursor: pointer;
+}
+
+.order-search-bar__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d8c4c4;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+
+.order-search-bar__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,60 @@
+.base-window-card {
+  background-color: #dfcecb; 
+  border-radius: 20px;
+  padding: 30px 25px;
+  width: 320px; 
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 0 4px 10px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.base-window-logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.base-window-logo {
+  width: 160px; 
+  height: auto;
+}
+
+.base-window-header {
+  text-align: center;
+  width: 100%;
+  color: #322827;
+  margin-bottom: 20px;
+}
+
+.base-window-title {
+  font-family: serif;
+  font-size: 22px;
+  font-weight: normal;
+  margin: 0 0 4px 0;
+}
+
+.base-window-subtitle {
+  font-family: serif;
+  font-size: 10px;
+  margin: 0 0 8px 0;
+  opacity: 0.8;
+}
+
+.base-window-divider {
+  border: none;
+  border-top: 1px solid #322827;
+  width: 80%;
+  margin: 0 auto;
+  opacity: 0.3;
+}
+
+.base-window-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}

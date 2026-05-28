@@ -1,0 +1,19 @@
+.registerButton {
+  background-color: #433635;
+  color: #dfcecb;
+  font-family: serif;
+  font-size: 24px;
+  padding: 14px 48px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.registerButton:hover {
+  background-color: #322827;
+}
+
+.registerButton:active {
+  transform: scale(0.96);
+}

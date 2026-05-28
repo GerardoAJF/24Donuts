@@ -1,0 +1,19 @@
+.delivery-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.delivery-checkbox-label {
+  font-family: "Georgia", serif;
+  font-size: 0.95rem;
+  color: #3b312b;
+}
+
+.delivery-checkbox-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #3b312b;
+}
