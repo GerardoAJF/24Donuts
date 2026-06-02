@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const { mongoUri } = require("./config.js")
 
 const connectDB = async () => {
-  const conn = await mongoose.connect(process.env.MONGODB_URI);
+    const conn = await mongoose.connect(mongoUri);
   console.log(`MongoDB conectado: ${conn.connection.host}`);
 };
 
