@@ -4,7 +4,7 @@ import customerModel from '../models/Customer.js';
 import { comparePassword } from '../utils/bcrypt.js';
 import { generateToken } from '../utils/jwt.js';
 
-const findUserByEmail = async (email) => {
+export const findUserByEmail = async (email) => {
   const admin = await adminModel.findOne({ email });
   if (admin) return { user: admin, role: 'admin' };
 
@@ -17,7 +17,7 @@ const findUserByEmail = async (email) => {
   return null;
 };
 
-const loginUser = async (email, password) => {
+export const loginUser = async (email, password) => {
   const found = await findUserByEmail(email);
   if (!found) return null;
 
@@ -32,5 +32,3 @@ const loginUser = async (email, password) => {
 
   return { token, role: found.role, user: found.user };
 };
-
-export default { findUserByEmail, loginUser };

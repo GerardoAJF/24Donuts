@@ -1,13 +1,13 @@
 import { createTransport } from 'nodemailer';
-import { senderEmail, senderPassword } from '../../config.js';
+import config from '../../config.js';
 
 const transporter = createTransport({
   host: 'smtp.gmail.com',
   port: 587,
   secure: false,
   auth: {
-    user: senderEmail,
-    pass: senderPassword,
+    user: config.senderEmail,
+    pass: config.senderPassword,
   },
   tls: {
     rejectUnauthorized: false,
@@ -22,10 +22,10 @@ transporter.verify((error) => {
   }
 });
 
-const sendOTPEmail = async (to, code) => {
+export const sendOTPEmail = async (to, code) => {
   try {
     const info = await transporter.sendMail({
-      from: `"24Donuts" <${senderEmail}>`,
+      from: `"24Donuts" <${config.senderEmail}>`,
       to,
       subject: 'Código de recuperación de contraseña - 24Donuts',
       html: `
@@ -45,4 +45,3 @@ const sendOTPEmail = async (to, code) => {
   }
 };
 
-export default { sendOTPEmail };

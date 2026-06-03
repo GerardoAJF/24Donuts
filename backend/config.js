@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.configDotenv()
 
 export default {
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
   mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/24donuts',
   jwtSecret: process.env.JWT_Secret_key,
   jwtExpiresIn: '7d',

@@ -1,9 +1,7 @@
 import { connect } from 'mongoose';
-import { mongoUri } from "./config.js";
+import config from "./config.js";
 
-const connectDB = async () => {
-    const conn = await connect(mongoUri);
+export const connectDB = async () => {
+    const conn = await connect(config.mongoUri);
   console.log(`MongoDB conectado: ${conn.connection.host}`);
 };
-
-export default { connectDB };

@@ -1,10 +1,10 @@
 import app from "./app.js"
-import { port } from "./config.js"
+import config from "./config.js"
 
 
 import { connectDB } from './database.js';
 
-const PORT = port || 3000;
+const PORT = config.port || 3000;
 
 const main = async () => {
   try {
