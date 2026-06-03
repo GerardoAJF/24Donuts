@@ -1,8 +1,8 @@
-import adminModel from '../models/Admin';
-import employeeModel from '../models/Employee';
-import customerModel from '../models/Customer';
-import { comparePassword } from '../utils/bcrypt';
-import { generateToken } from '../utils/jwt';
+import adminModel from '../models/Admin.js';
+import employeeModel from '../models/Employee.js';
+import customerModel from '../models/Customer.js';
+import { comparePassword } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
 
 const findUserByEmail = async (email) => {
   const admin = await adminModel.findOne({ email });

@@ -1,5 +1,5 @@
-import ingredientModel from '../models/Ingredient';
-import { success, created, badRequest, notFound } from '../utils/responses';
+import ingredientModel from '../models/Ingredient.js';
+import { success, created, badRequest, notFound } from '../utils/responses.js';
 
 const getIngredients = async (req, res, next) => {
   try {

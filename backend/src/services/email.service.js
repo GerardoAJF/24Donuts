@@ -1,5 +1,5 @@
 import { createTransport } from 'nodemailer';
-import { senderEmail, senderPassword } from '../config/config';
+import { senderEmail, senderPassword } from '../../config.js';
 
 const transporter = createTransport({
   host: 'smtp.gmail.com',

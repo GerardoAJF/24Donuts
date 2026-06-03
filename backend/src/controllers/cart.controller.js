@@ -1,6 +1,6 @@
-import shoppingCartModel from "../models/ShoppingCart";
-import productModel from "../models/Product";
-import { success, created, badRequest, notFound } from "../utils/responses";
+import shoppingCartModel from "../models/ShoppingCart.js";
+import productModel from "../models/Product.js";
+import { success, created, badRequest, notFound } from "../utils/responses.js";
 
 // GET /api/cart  — carrito activo del cliente
 const getCart = async (req, res, next) => {

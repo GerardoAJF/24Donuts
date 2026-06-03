@@ -1,5 +1,5 @@
-import orderModel from '../models/Order';
-import shoppingCartModel from '../models/ShoppingCart';
+import orderModel from '../models/Order.js';
+import shoppingCartModel from '../models/ShoppingCart.js';
 import { success, created, badRequest, notFound, forbidden } from '../utils/responses.js';
 
 // GET /api/orders  (admin/employee)

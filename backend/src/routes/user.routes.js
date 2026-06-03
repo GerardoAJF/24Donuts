@@ -1,24 +1,23 @@
-const router = require('express').Router();
-const {
-  getAdmins, createAdmin,
-  getEmployees, createEmployee, updateEmployee, deleteEmployee,
-  getCustomers, resetUserPassword,
-} = require('../controllers/user.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from "express"
 
-router.use(authMiddleware, requireRole('admin'));
+import userController from '../controllers/user.controller.js';
 
-router.get('/admins', getAdmins);
-router.post('/admins', createAdmin);
+const router = express.Router()
 
-router.get('/employees', getEmployees);
-router.post('/employees', createEmployee);
-router.put('/employees/:id', updateEmployee);
-router.delete('/employees/:id', deleteEmployee);
+router.route("/admins")
+.get(userController.getAdmins)
+.post(userController.createAdmin);
 
-router.get('/customers', getCustomers);
+router.route("/employees")
+.get(userController.getEmployees)
+.post(userController.createEmployee);
 
-router.patch('/:role/:id/reset-password', resetUserPassword);
+router.route("/employees/:id")
+.put(userController.updateEmployee)
+.delete(userController.deleteEmployee);
 
-module.exports = router;
+router.get('/customers', userController.getCustomers);
+
+router.patch('/:role/:id/reset-password', userController.resetUserPassword);
+
+export default router;

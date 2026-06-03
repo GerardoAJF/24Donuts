@@ -22,4 +22,4 @@ const notFound = (res, message = 'No encontrado') => {
   return res.status(404).json({ success: false, message });
 };
 
-module.exports = { success, created, badRequest, unauthorized, forbidden, notFound };
+export default { success, created, badRequest, unauthorized, forbidden, notFound };

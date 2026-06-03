@@ -1,22 +1,14 @@
-const router = require('express').Router();
-const {
-  registerInitialAdmin,
-  completeAdminProfile,
-  login,
-  registerCustomer,
-  forgotPassword,
-  validatePin,
-  resetPassword,
-} = require('../controllers/auth.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from 'express';
+import authController from '../controllers/auth.controller.js';
 
-router.post('/registro-inicial', registerInitialAdmin);
-router.post('/configuracion-inicial', authMiddleware, requireRole('admin'), completeAdminProfile);
-router.post('/login', login);
-router.post('/register', registerCustomer);
-router.post('/recuperar-correo', forgotPassword);
-router.post('/validar-pin', validatePin);
-router.post('/nueva-contrasena', resetPassword);
+const router = express.Router()
 
-module.exports = router;
+router.post('/registro-inicial', authController.registerInitialAdmin);
+router.post('/configuracion-inicial', authController.authMiddleware);
+router.post('/login', authController.login);
+router.post('/register', authController.registerCustomer);
+router.post('/recuperar-correo', authController.forgotPassword);
+router.post('/validar-pin', authController.validatePin);
+router.post('/nueva-contrasena', authController.resetPassword);
+
+export default router;

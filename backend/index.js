@@ -1,14 +1,19 @@
-require('dotenv').config();
-const app = require('./src/app');
-const { connectDB } = require('./src/config/database');
+import app from "./app.js"
+import { port } from "./config.js"
 
-const PORT = process.env.PORT || 3000;
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-  });
-}).catch((err) => {
-  console.error('Error al conectar a la base de datos:', err);
-  process.exit(1);
-});
+import { connectDB } from './database.js';
+
+const PORT = port || 3000;
+
+const main = async () => {
+  try {
+    await connectDB()
+    app.listen(PORT, () => console.log("Servidor corriendo en el puerto: " + PORT))
+  }
+  catch (error) {
+    console.error('Error al conectar a la base de datos:', error)
+  }
+}
+
+main()

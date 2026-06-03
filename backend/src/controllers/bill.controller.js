@@ -1,6 +1,6 @@
-import billModel from '../models/Bill';
-import ingredientModel from '../models/Ingredient';
-import { success, created, badRequest, notFound } from '../utils/responses';
+import billModel from '../models/Bill.js';
+import ingredientModel from '../models/Ingredient.js';
+import { success, created, badRequest, notFound } from '../utils/responses.js';
 
 const getBills = async (req, res, next) => {
   try {
