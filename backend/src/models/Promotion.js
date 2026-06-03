@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const promotionSchema = new mongoose.Schema({
+const promotionSchema = new Schema({
   name:                { type: String, required: true, trim: true },
   init_date:           { type: Date, required: true },
   end_date:            { type: Date, required: true },
-  tags:                [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
-  products:            [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+  tags:                [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+  products:            [{ type: Schema.Types.ObjectId, ref: 'Product' }],
   discount_percentage: { type: Number, required: true, min: 0, max: 100 },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Promotion', promotionSchema);
+export default model('Promotion', promotionSchema);
