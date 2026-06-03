@@ -1,6 +1,6 @@
-const Order = require('../models/Order');
-const ShoppingCart = require('../models/ShoppingCart');
-const { success, created, badRequest, notFound, forbidden } = require('../utils/responses');
+import orderModel from '../models/Order';
+import shoppingCartModel from '../models/ShoppingCart';
+import { success, created, badRequest, notFound, forbidden } from '../utils/responses.js';
 
 // GET /api/orders  (admin/employee)
 const getOrders = async (req, res, next) => {
@@ -16,7 +16,7 @@ const getOrders = async (req, res, next) => {
       filter.datetime = { $gte: start, $lt: end };
     }
 
-    const orders = await Order.find(filter)
+    const orders = await orderModel.find(filter)
       .populate({
         path: 'shopping_cart_id',
         populate: { path: 'products.product_id customer_id' },
@@ -30,9 +30,9 @@ const getOrders = async (req, res, next) => {
 // GET /api/orders/my  (customer — sus propias órdenes)
 const getMyOrders = async (req, res, next) => {
   try {
-    const carts = await ShoppingCart.find({ customer_id: req.user.id });
+    const carts = await shoppingCartModel.find({ customer_id: req.user.id });
     const cartIds = carts.map(c => c._id);
-    const orders = await Order.find({ shopping_cart_id: { $in: cartIds } })
+    const orders = await orderModel.find({ shopping_cart_id: { $in: cartIds } })
       .populate({ path: 'shopping_cart_id', populate: { path: 'products.product_id' } })
       .sort({ datetime: -1 });
     return success(res, { orders });
@@ -42,7 +42,7 @@ const getMyOrders = async (req, res, next) => {
 // GET /api/orders/:id
 const getOrderById = async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params.id)
+    const order = await orderModel.findById(req.params.id)
       .populate({ path: 'shopping_cart_id', populate: { path: 'products.product_id customer_id' } });
     if (!order) return notFound(res, 'Orden no encontrada');
     return success(res, { order });
@@ -55,13 +55,13 @@ const createOrder = async (req, res, next) => {
     const { pay_method, delivery, address_delivery } = req.body;
     if (!pay_method) return badRequest(res, 'Método de pago es requerido');
 
-    const cart = await ShoppingCart.findOne({ customer_id: req.user.id, actual: true });
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart || cart.products.length === 0) return badRequest(res, 'El carrito está vacío');
 
     cart.actual = false;
     await cart.save();
 
-    const order = await Order.create({
+    const order = await orderModel.create({
       shopping_cart_id: cart._id,
       pay_method,
       delivery: delivery || false,
@@ -79,11 +79,11 @@ const updateOrderStatus = async (req, res, next) => {
     const valid = ['Pendiente', 'Aceptado', 'Rechazado', 'Completado'];
     if (!valid.includes(status)) return badRequest(res, 'Estado inválido');
 
-    const order = await Order.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    const order = await orderModel.findByIdAndUpdate(req.params.id, { status }, { new: true });
     if (!order) return notFound(res, 'Orden no encontrada');
 
     return success(res, { order }, 'Estado actualizado');
   } catch (err) { next(err); }
 };
 
-module.exports = { getOrders, getMyOrders, getOrderById, createOrder, updateOrderStatus };
+export default { getOrders, getMyOrders, getOrderById, createOrder, updateOrderStatus };

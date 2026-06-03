@@ -1,22 +1,24 @@
-const Admin = require('../models/Admin');
-const Customer = require('../models/Customer');
-const { hashPassword } = require('../utils/bcrypt');
-const { loginUser, findUserByEmail } = require('../services/auth.service');
-const { createOTP, validateOTP } = require('../services/otp.service');
-const { sendOTPEmail } = require('../services/email.service');
-const { success, created, badRequest, unauthorized, notFound } = require('../utils/responses');
+import crypto from "crypto"
+
+import adminModel from '../models/Admin.js';
+import customerModel from '../models/Customer.js';
+import { hashPassword } from '../utils/bcrypt.js';
+import { generateToken, verifyToken } from "../utils/jwt.js"
+import { loginUser, findUserByEmail } from '../services/auth.service.js';
+import { sendOTPEmail } from '../services/email.service.js';
+import { success, created, badRequest, unauthorized, notFound } from '../utils/responses.js';
 
 // POST /api/auth/registro-inicial
 const registerInitialAdmin = async (req, res, next) => {
   try {
-    const count = await Admin.countDocuments();
+    const count = await adminModel.countDocuments();
     if (count > 0) return badRequest(res, 'Ya existe un administrador registrado');
 
     const { email, password } = req.body;
     if (!email || !password) return badRequest(res, 'Correo y contraseña son requeridos');
 
     const hashed = await hashPassword(password);
-    const admin = await Admin.create({
+    const admin = await adminModel.create({
       email,
       password: hashed,
       first_name: '',
@@ -32,7 +34,7 @@ const registerInitialAdmin = async (req, res, next) => {
 const completeAdminProfile = async (req, res, next) => {
   try {
     const { first_name, last_name, phone } = req.body;
-    const admin = await Admin.findByIdAndUpdate(
+    const admin = await adminModel.findByIdAndUpdate(
       req.user.id,
       { first_name, last_name, phone },
       { new: true, runValidators: true }
@@ -52,15 +54,18 @@ const login = async (req, res, next) => {
     if (!result) return unauthorized(res, 'Credenciales incorrectas');
 
     const { token, role, user } = result;
-    return success(res, {
-      token,
-      role,
-      user: {
+    const resUser = {
         id: user._id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-      },
+    }
+
+    res.cookie("LoginCookie", {resUser})
+    return success(res, {
+      token,
+      role,
+      user: resUser
     }, 'Login exitoso');
   } catch (err) { next(err); }
 };
@@ -72,11 +77,11 @@ const registerCustomer = async (req, res, next) => {
     if (!first_name || !last_name || !email || !password || !phone)
       return badRequest(res, 'Todos los campos son requeridos');
 
-    const existing = await Customer.findOne({ email });
+    const existing = await customerModel.findOne({ email });
     if (existing) return badRequest(res, 'El correo ya está registrado');
 
     const hashed = await hashPassword(password);
-    const customer = await Customer.create({ first_name, last_name, email, password: hashed, phone });
+    const customer = await customerModel.create({ first_name, last_name, email, password: hashed, phone });
 
     return created(res, { id: customer._id }, 'Cliente registrado exitosamente');
   } catch (err) { next(err); }
@@ -91,7 +96,10 @@ const forgotPassword = async (req, res, next) => {
     const found = await findUserByEmail(email);
     if (!found) return notFound(res, 'No existe una cuenta con ese correo');
 
-    const code = await createOTP(email);
+    const code = crypto.randomBytes(6).toString("hex")
+    const token = generateToken({code})
+
+    res.cookie("ForgotCookie", token)
     await sendOTPEmail(email, code);
 
     return success(res, {}, 'Código enviado al correo');
@@ -101,11 +109,17 @@ const forgotPassword = async (req, res, next) => {
 // POST /api/auth/validar-pin
 const validatePin = async (req, res, next) => {
   try {
-    const { email, code } = req.body;
-    if (!email || !code) return badRequest(res, 'Correo y código son requeridos');
+    const { email, clientCode } = req.body;
+    if (!email || !clientCode) return badRequest(res, 'Correo y código son requeridos');
 
-    const valid = await validateOTP(email, code);
+    const token = req.cookies.ForgotCookie;
+    const { code } = verifyToken(token) 
+
+    const valid = clientCode === code
     if (!valid) return badRequest(res, 'Código inválido o expirado');
+
+    const newToken = generateToken({email, verified: true})
+    res.cookie("ValidatedCookie", newToken)
 
     return success(res, {}, 'Código válido');
   } catch (err) { next(err); }
@@ -114,12 +128,17 @@ const validatePin = async (req, res, next) => {
 // POST /api/auth/nueva-contrasena
 const resetPassword = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) return badRequest(res, 'Correo y contraseña son requeridos');
+    const { password } = req.body;
+    if ( !password ) return badRequest(res, 'Correo y contraseña son requeridos');
 
-    const found = await findUserByEmail(email);
-    if (!found) return notFound(res, 'Usuario no encontrado');
+    const token = req.cookies.ValidatedCookie;
 
+    const {email, verified} = verifyToken(token)
+
+    if (!verified) return badRequest(res, "El correo no ha sido confirmado")
+
+    const found = await findUserByEmail(email)
+    
     const hashed = await hashPassword(password);
     found.user.password = hashed;
     await found.user.save();
@@ -128,7 +147,7 @@ const resetPassword = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-module.exports = {
+export default {
   registerInitialAdmin,
   completeAdminProfile,
   login,

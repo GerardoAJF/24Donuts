@@ -1,5 +1,5 @@
-const Product = require('../models/Product');
-const { success, created, badRequest, notFound } = require('../utils/responses');
+import productModel from '../models/Product.js';
+import { success, created, badRequest, notFound } from '../utils/responses.js';
 
 // GET /api/products
 const getProducts = async (req, res, next) => {
@@ -10,7 +10,7 @@ const getProducts = async (req, res, next) => {
     if (tag) filter.tags = tag;
     if (maxPrice) filter.price = { $lte: Number(maxPrice) };
 
-    const products = await Product.find(filter).populate('tags');
+    const products = await productModel.find(filter).populate('tags');
     return success(res, { products });
   } catch (err) { next(err); }
 };
@@ -18,7 +18,7 @@ const getProducts = async (req, res, next) => {
 // GET /api/products/:id
 const getProductById = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).populate('tags');
+    const product = await productModel.findById(req.params.id).populate('tags');
     if (!product) return notFound(res, 'Producto no encontrado');
     return success(res, { product });
   } catch (err) { next(err); }
@@ -30,7 +30,7 @@ const createProduct = async (req, res, next) => {
     const { name, description, price, img_link, tags } = req.body;
     if (!name || price === undefined) return badRequest(res, 'Nombre y precio son requeridos');
 
-    const product = await Product.create({ name, description, price, img_link, tags: tags || [] });
+    const product = await productModel.create({ name, description, price, img_link, tags: tags || [] });
     const populated = await product.populate('tags');
     return created(res, { product: populated });
   } catch (err) { next(err); }
@@ -39,7 +39,7 @@ const createProduct = async (req, res, next) => {
 // PUT /api/products/:id
 const updateProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('tags');
+    const product = await productModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('tags');
     if (!product) return notFound(res, 'Producto no encontrado');
     return success(res, { product });
   } catch (err) { next(err); }
@@ -48,10 +48,10 @@ const updateProduct = async (req, res, next) => {
 // DELETE /api/products/:id
 const deleteProduct = async (req, res, next) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
+    const product = await productModel.findByIdAndDelete(req.params.id);
     if (!product) return notFound(res, 'Producto no encontrado');
     return success(res, {}, 'Producto eliminado');
   } catch (err) { next(err); }
 };
 
-module.exports = { getProducts, getProductById, createProduct, updateProduct, deleteProduct };
+export default {getProducts, getProductById, createProduct, updateProduct, deleteProduct };

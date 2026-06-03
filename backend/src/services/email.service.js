@@ -1,7 +1,7 @@
-const nodemailer = require('nodemailer');
-const { senderEmail, senderPassword } = require('../config/config');
+import { createTransport } from 'nodemailer';
+import { senderEmail, senderPassword } from '../config/config';
 
-const transporter = nodemailer.createTransport({
+const transporter = createTransport({
   host: 'smtp.gmail.com',
   port: 587,
   secure: false,
@@ -45,4 +45,4 @@ const sendOTPEmail = async (to, code) => {
   }
 };
 
-module.exports = { sendOTPEmail };
+export default { sendOTPEmail };

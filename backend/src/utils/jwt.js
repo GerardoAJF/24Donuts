@@ -1,16 +1,16 @@
-const jwt = require('jsonwebtoken');
-const { jwtSecret, jwtExpiresIn } = require('../config/config');
+import { sign, verify } from 'jsonwebtoken';
+import { jwtSecret, jwtExpiresIn } from '../config/config';
 
 const generateToken = (payload) => {
-  return jwt.sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
+  return sign(payload, jwtSecret, { expiresIn: jwtExpiresIn });
 };
 
 const verifyToken = (token) => {
   try {
-    return jwt.verify(token, jwtSecret);
+    return verify(token, jwtSecret);
   } catch {
     return null;
   }
 };
 
-module.exports = { generateToken, verifyToken };
+export default { generateToken, verifyToken };
