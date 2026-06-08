@@ -5,7 +5,7 @@ import { FaHouse, FaUtensils, FaPhone, FaUser, FaCartShopping } from 'react-icon
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
+    <nav className="public-navbar">
       <Link to="/" className="navbar-logo">
         <FaHouse size={30} color="#3a2e2a" />
         <span className="navbar-logo-texto">24DONUTS</span>

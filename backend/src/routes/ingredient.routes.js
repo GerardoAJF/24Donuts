@@ -1,13 +1,15 @@
-const router = require('express').Router();
-const { getIngredients, createIngredient, updateIngredient, deleteIngredient } = require('../controllers/ingredient.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from "express"
 
-router.use(authMiddleware, requireRole('admin'));
+import ingredientController from '../controllers/ingredient.controller.js';
 
-router.get('/', getIngredients);
-router.post('/', createIngredient);
-router.put('/:id', updateIngredient);
-router.delete('/:id', deleteIngredient);
+const router = express.Router()
 
-module.exports = router;
+router.route("/")
+.get(ingredientController.getIngredients)
+.post(ingredientController.createIngredient);
+
+router.route("/:id")
+.put(ingredientController.updateIngredient)
+.delete(ingredientController.deleteIngredient);
+
+export default router;

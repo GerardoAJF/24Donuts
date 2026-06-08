@@ -1,23 +1,23 @@
-const Admin = require('../models/Admin');
-const Employee = require('../models/Employee');
-const Customer = require('../models/Customer');
-const { comparePassword } = require('../utils/bcrypt');
-const { generateToken } = require('../utils/jwt');
+import adminModel from '../models/Admin.js';
+import employeeModel from '../models/Employee.js';
+import customerModel from '../models/Customer.js';
+import { comparePassword } from '../utils/bcrypt.js';
+import { generateToken } from '../utils/jwt.js';
 
-const findUserByEmail = async (email) => {
-  const admin = await Admin.findOne({ email });
+export const findUserByEmail = async (email) => {
+  const admin = await adminModel.findOne({ email });
   if (admin) return { user: admin, role: 'admin' };
 
-  const employee = await Employee.findOne({ email });
+  const employee = await employeeModel.findOne({ email });
   if (employee) return { user: employee, role: 'employee' };
 
-  const customer = await Customer.findOne({ email });
+  const customer = await customerModel.findOne({ email });
   if (customer) return { user: customer, role: 'customer' };
 
   return null;
 };
 
-const loginUser = async (email, password) => {
+export const loginUser = async (email, password) => {
   const found = await findUserByEmail(email);
   if (!found) return null;
 
@@ -32,5 +32,3 @@ const loginUser = async (email, password) => {
 
   return { token, role: found.role, user: found.user };
 };
-
-module.exports = { findUserByEmail, loginUser };

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const ingredientSchema = new mongoose.Schema({
+const ingredientSchema = new Schema({
   name:  { type: String, required: true, trim: true },
   stock: { type: Number, required: true, default: 0, min: 0 },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Ingredient', ingredientSchema);
+export default model('Ingredient', ingredientSchema);

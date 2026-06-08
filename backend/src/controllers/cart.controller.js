@@ -1,11 +1,11 @@
-const ShoppingCart = require('../models/ShoppingCart');
-const Product = require('../models/Product');
-const { success, created, badRequest, notFound } = require('../utils/responses');
+import shoppingCartModel from "../models/ShoppingCart.js";
+import productModel from "../models/Product.js";
+import { success, created, badRequest, notFound } from "../utils/responses.js";
 
 // GET /api/cart  — carrito activo del cliente
 const getCart = async (req, res, next) => {
   try {
-    const cart = await ShoppingCart.findOne({ customer_id: req.user.id, actual: true })
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true })
       .populate('products.product_id');
     return success(res, { cart: cart || null });
   } catch (err) { next(err); }
@@ -17,12 +17,12 @@ const addToCart = async (req, res, next) => {
     const { product_id, amount } = req.body;
     if (!product_id || !amount) return badRequest(res, 'product_id y amount son requeridos');
 
-    const product = await Product.findById(product_id);
+    const product = await productModel.findById(product_id);
     if (!product) return notFound(res, 'Producto no encontrado');
 
-    let cart = await ShoppingCart.findOne({ customer_id: req.user.id, actual: true });
+    let cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart) {
-      cart = await ShoppingCart.create({ customer_id: req.user.id, products: [], total: 0 });
+      cart = await shoppingCartModel.create({ customer_id: req.user.id, products: [], total: 0 });
     }
 
     const subtotal = product.price * amount;
@@ -48,10 +48,10 @@ const updateCartItem = async (req, res, next) => {
     const { product_id, amount } = req.body;
     if (!product_id || amount === undefined) return badRequest(res, 'product_id y amount son requeridos');
 
-    const cart = await ShoppingCart.findOne({ customer_id: req.user.id, actual: true });
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart) return notFound(res, 'Carrito no encontrado');
 
-    const product = await Product.findById(product_id);
+    const product = await productModel.findById(product_id);
     if (!product) return notFound(res, 'Producto no encontrado');
 
     const idx = cart.products.findIndex(p => p.product_id.toString() === product_id);
@@ -74,7 +74,7 @@ const updateCartItem = async (req, res, next) => {
 // DELETE /api/cart/remove/:productId
 const removeFromCart = async (req, res, next) => {
   try {
-    const cart = await ShoppingCart.findOne({ customer_id: req.user.id, actual: true });
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart) return notFound(res, 'Carrito no encontrado');
 
     cart.products = cart.products.filter(p => p.product_id.toString() !== req.params.productId);
@@ -85,4 +85,4 @@ const removeFromCart = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-module.exports = { getCart, addToCart, updateCartItem, removeFromCart };
+export default { getCart, addToCart, updateCartItem, removeFromCart };

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const employeeSchema = new mongoose.Schema({
+const employeeSchema = new Schema({
   first_name: { type: String, required: true, trim: true },
   last_name:  { type: String, required: true, trim: true },
   email:      { type: String, required: true, unique: true, lowercase: true, trim: true },
@@ -11,4 +11,4 @@ const employeeSchema = new mongoose.Schema({
   turn:       { type: String, enum: ['Día', 'Noche'], required: true },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Employee', employeeSchema);
+export default model('Employee', employeeSchema);

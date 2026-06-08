@@ -1,5 +1,5 @@
-const Promotion = require('../models/Promotion');
-const { success, created, badRequest, notFound } = require('../utils/responses');
+import promotionModel from '../models/Promotion.js';
+import { success, created, badRequest, notFound }from '../utils/responses.js';
 
 const getPromotions = async (req, res, next) => {
   try {
@@ -13,7 +13,7 @@ const getPromotions = async (req, res, next) => {
       filter.end_date = { $gte: start };
     }
 
-    const promotions = await Promotion.find(filter).populate('tags products');
+    const promotions = await promotionModel.find(filter).populate('tags products');
 
     let result = promotions;
     if (active !== undefined) {
@@ -30,7 +30,7 @@ const getPromotions = async (req, res, next) => {
 
 const getPromotionById = async (req, res, next) => {
   try {
-    const promo = await Promotion.findById(req.params.id).populate('tags products');
+    const promo = await promotionModel.findById(req.params.id).populate('tags products');
     if (!promo) return notFound(res, 'Promoción no encontrada');
     return success(res, { promotion: promo });
   } catch (err) { next(err); }
@@ -42,7 +42,7 @@ const createPromotion = async (req, res, next) => {
     if (!name || !init_date || !end_date || discount_percentage === undefined)
       return badRequest(res, 'Faltan campos requeridos');
 
-    const promo = await Promotion.create({ name, init_date, end_date, tags: tags || [], products: products || [], discount_percentage });
+    const promo = await promotionModel.create({ name, init_date, end_date, tags: tags || [], products: products || [], discount_percentage });
     const populated = await promo.populate('tags products');
     return created(res, { promotion: populated });
   } catch (err) { next(err); }
@@ -50,7 +50,7 @@ const createPromotion = async (req, res, next) => {
 
 const updatePromotion = async (req, res, next) => {
   try {
-    const promo = await Promotion.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('tags products');
+    const promo = await promotionModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('tags products');
     if (!promo) return notFound(res, 'Promoción no encontrada');
     return success(res, { promotion: promo });
   } catch (err) { next(err); }
@@ -58,10 +58,10 @@ const updatePromotion = async (req, res, next) => {
 
 const deletePromotion = async (req, res, next) => {
   try {
-    const promo = await Promotion.findByIdAndDelete(req.params.id);
+    const promo = await promotionModel.findByIdAndDelete(req.params.id);
     if (!promo) return notFound(res, 'Promoción no encontrada');
     return success(res, {}, 'Promoción eliminada');
   } catch (err) { next(err); }
 };
 
-module.exports = { getPromotions, getPromotionById, createPromotion, updatePromotion, deletePromotion };
+export default { getPromotions, getPromotionById, createPromotion, updatePromotion, deletePromotion };

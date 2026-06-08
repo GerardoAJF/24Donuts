@@ -1,12 +1,15 @@
-const router = require('express').Router();
-const { getPromotions, getPromotionById, createPromotion, updatePromotion, deletePromotion } = require('../controllers/promotion.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from "express"
 
-router.get('/', getPromotions);
-router.get('/:id', getPromotionById);
-router.post('/', authMiddleware, requireRole('admin'), createPromotion);
-router.put('/:id', authMiddleware, requireRole('admin'), updatePromotion);
-router.delete('/:id', authMiddleware, requireRole('admin'), deletePromotion);
+import promotionController from '../controllers/promotion.controller.js';
+const router = express.Router()
 
-module.exports = router;
+router.route("/")
+.get(promotionController.getPromotions)
+.post(promotionController.createPromotion);
+
+router.route("/:id")
+.get(promotionController.getPromotionById)
+.put(promotionController.updatePromotion)
+.delete(promotionController.deletePromotion);
+
+export default router;

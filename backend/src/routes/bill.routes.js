@@ -1,14 +1,16 @@
-const router = require('express').Router();
-const { getBills, getBillById, createBill, updateBill, deleteBill } = require('../controllers/bill.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from "express"
 
-router.use(authMiddleware, requireRole('admin'));
+import billController from '../controllers/bill.controller.js';
 
-router.get('/', getBills);
-router.get('/:id', getBillById);
-router.post('/', createBill);
-router.put('/:id', updateBill);
-router.delete('/:id', deleteBill);
+const router = express.Router()
 
-module.exports = router;
+router.route("/")
+.get(billController.getBills)
+.post(billController.createBill);
+
+router.route("/:id")
+.get(billController.getBillById)
+.put(billController.updateBill)
+.delete(billController.deleteBill);
+
+export default router;

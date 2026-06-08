@@ -1,12 +1,17 @@
-const router = require('express').Router();
-const { getOrders, getMyOrders, getOrderById, createOrder, updateOrderStatus } = require('../controllers/order.controller');
-const { authMiddleware } = require('../middlewares/auth.middleware');
-const { requireRole } = require('../middlewares/role.middleware');
+import express from "express"
 
-router.get('/', authMiddleware, requireRole('admin', 'employee'), getOrders);
-router.get('/my', authMiddleware, requireRole('customer'), getMyOrders);
-router.get('/:id', authMiddleware, requireRole('admin', 'employee'), getOrderById);
-router.post('/', authMiddleware, requireRole('customer'), createOrder);
-router.patch('/:id/status', authMiddleware, requireRole('admin', 'employee'), updateOrderStatus);
+import orderController from '../controllers/order.controller.js'
 
-module.exports = router;
+const router = express.Router()
+
+router.route("/")
+.get(orderController.getOrders)
+.post(orderController.createOrder);
+
+router.get('/my', orderController.getMyOrders);
+
+router.route("/:id")
+.get(orderController.getOrderById)
+.patch(orderController.updateOrderStatus);
+
+export default router;
