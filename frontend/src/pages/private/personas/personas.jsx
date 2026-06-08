@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PersonasTable from '../../../components/private/PersonasTable/personasTable';
+import TabBar from '../../../components/private/TabBar/TabBar.jsx';
 import Boton from '../../../components/shared/RegisterButton/RegisterButton';
 import api from '../../../services/api';
 import './Personas.css';
@@ -9,6 +10,7 @@ const Personas = () => {
   const [view, setView] = useState('Administradores');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const labels = {
@@ -28,7 +30,9 @@ const Personas = () => {
       const key = currentView === 'Administradores' ? 'admins'
         : currentView === 'Empleados' ? 'employees' : 'customers';
 
-      const normalized = (res.data.data[key] || []).map(u => ({
+      const rawData = res?.data?.data?.[key] || [];
+
+      const normalized = rawData.map(u => ({
         nombre: u.first_name,
         apellido: u.last_name,
         correo: u.email,
@@ -58,53 +62,63 @@ const Personas = () => {
       <div className="personas-content">
         <h1 className="personas-title">Personas</h1>
 
-        <div className="tabs-wrapper">
-          {['Administradores', 'Empleados', 'Clientes'].map(tab => (
-            <button
-              key={tab}
-              className={`tab-btn ${view === tab ? 'active' : ''}`}
-              onClick={() => setView(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <TabBar
+          tabs={[
+            { id: 'Administradores', label: 'Administradores' },
+            { id: 'Empleados', label: 'Empleados' },
+            { id: 'Clientes', label: 'Clientes' },
+          ]}
+          activeTab={view}
+          onTabChange={setView}
+        />
 
         <div className="search-section">
-          <div className="search-bar">
-            <input type="text" placeholder={`Ingrese el nombre, apellido o correo del ${labels[view]}`} />
-            {view === 'Empleados' && (
-              <div className="filters-inline">
-                <div className="filter-group">
-                  <label>Día:</label>
-                  <select>
-                    <option>Todos</option>
-                    <option>Lunes</option>
-                    <option>Martes</option>
-                    <option>Miércoles</option>
-                    <option>Jueves</option>
-                    <option>Viernes</option>
-                    <option>Sábado</option>
-                    <option>Domingo</option>
-                  </select>
-                </div>
-                <div className="filter-group">
-                  <label>Turno:</label>
-                  <select>
-                    <option>Todos</option>
-                    <option>Día</option>
-                    <option>Noche</option>
-                  </select>
-                </div>
-              </div>
-            )}
-            <button className="search-icon-btn">🔍</button>
+          <div className="search-bar-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder={`Ingrese el nombre, apellido o correo del ${labels[view]}`}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="search-icon-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
           </div>
+
+          {view === 'Empleados' && (
+            <div className="filters-inline">
+              <div className="filter-group">
+                <label>Día:</label>
+                <select className="filter-select">
+                  <option>Todos</option>
+                  <option>Lunes</option>
+                  <option>Martes</option>
+                  <option>Miércoles</option>
+                  <option>Jueves</option>
+                  <option>Viernes</option>
+                  <option>Sábado</option>
+                  <option>Domingo</option>
+                </select>
+              </div>
+              <div className="filter-group">
+                <label>Turno:</label>
+                <select className="filter-select">
+                  <option>Todos</option>
+                  <option>Día</option>
+                  <option>Noche</option>
+                </select>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="table-container">
           {loading ? (
-            <p style={{ padding: '1rem' }}>Cargando...</p>
+            <div className="loading-spinner">Cargando registros...</div>
           ) : (
             <PersonasTable data={data} type={view} />
           )}

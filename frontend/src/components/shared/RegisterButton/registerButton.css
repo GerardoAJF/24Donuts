@@ -2,12 +2,15 @@
   background-color: #433635;
   color: #dfcecb;
   font-family: serif;
-  font-size: 24px;
-  padding: 14px 48px;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  padding: 12px 36px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: transform 0.1s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
 }
 
 .registerButton:hover {
