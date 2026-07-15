@@ -1,0 +1,98 @@
+.verify-container {
+  display: flex;
+  width: 500px;
+  max-width: 95%;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}
+
+.verify-formulario-seccion {
+  flex: 1;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.verify-titulo {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: 'Georgia', serif;
+  font-weight: 500;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.verify-subtitulo {
+  margin: 0 0 25px;
+  color: #666;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.verify-boton-wrapper {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.verify-boton-wrapper button {
+  padding: 12px 60px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+}
+
+.verify-boton-wrapper button:disabled {
+  background-color: #8a8a8a;
+  cursor: not-allowed;
+}
+
+.verify-error {
+  color: #c0392b;
+  background-color: #fdecea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.verify-success {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.verify-login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.verify-login-link a {
+  color: #a05050;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.verify-login-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .verify-container {
+    width: 100%;
+  }
+  .verify-formulario-seccion {
+    padding: 35px 25px;
+  }
+}

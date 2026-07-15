@@ -33,7 +33,7 @@ const getMyOrders = async (req, res, next) => {
     const carts = await shoppingCartModel.find({ customer_id: req.user.id });
     const cartIds = carts.map(c => c._id);
     const orders = await orderModel.find({ shopping_cart_id: { $in: cartIds } })
-      .populate({ path: 'shopping_cart_id', populate: { path: 'products.product_id' } })
+      .populate({ path: 'shopping_cart_id', populate: { path: 'products.product_id customer_id' } })
       .sort({ datetime: -1 });
     return success(res, { orders });
   } catch (err) { next(err); }

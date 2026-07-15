@@ -22,3 +22,37 @@
               radial-gradient(circle at 80% 50%, rgba(59, 49, 43, 0.08) 0%, transparent 60%);
   pointer-events: none;
 }
+
+.product-detail-status {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+  color: #3b312b;
+  text-align: center;
+}
+
+.product-detail-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.product-detail-message {
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.product-detail-message.success {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+}
+
+.product-detail-message.error {
+  color: #c0392b;
+  background-color: #fdecea;
+}

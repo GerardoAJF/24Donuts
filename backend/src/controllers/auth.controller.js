@@ -5,8 +5,9 @@ import customerModel from '../models/Customer.js';
 import { hashPassword } from '../utils/bcrypt.js';
 import { generateToken, verifyToken } from "../utils/jwt.js"
 import { loginUser, findUserByEmail } from '../services/auth.service.js';
-import { sendOTPEmail } from '../services/email.service.js';
+import { sendOTPEmail, sendVerificationEmail } from '../services/email.service.js';
 import { success, created, badRequest, unauthorized, notFound } from '../utils/responses.js';
+import { shortLivedCookieOptions } from '../../config.js';
 
 // POST /api/auth/registro-inicial
 const registerInitialAdmin = async (req, res, next) => {
@@ -52,6 +53,7 @@ const login = async (req, res, next) => {
 
     const result = await loginUser(email, password);
     if (!result) return unauthorized(res, 'Credenciales incorrectas');
+    if (result.unverified) return unauthorized(res, 'Debes confirmar tu cuenta por correo antes de iniciar sesión');
 
     const { token, role, user } = result;
     const resUser = {
@@ -59,6 +61,7 @@ const login = async (req, res, next) => {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
+        phone: user.phone,
     }
 
     res.cookie("LoginCookie", {resUser})
@@ -71,19 +74,64 @@ const login = async (req, res, next) => {
 };
 
 // POST /api/auth/register
+// Paso 1 de 2: NO crea el Customer todavía. Guarda sus datos (con la contraseña ya
+// hasheada) dentro de un JWT de 15 min metido en una cookie httpOnly, y manda el
+// código de verificación por correo. El cliente solo queda "pendiente" hasta que
+// confirme con /verificar-cuenta.
 const registerCustomer = async (req, res, next) => {
   try {
     const { first_name, last_name, email, password, phone } = req.body;
-    if (!first_name || !last_name || !email || !password || !phone)
-      return badRequest(res, 'Todos los campos son requeridos');
 
     const existing = await customerModel.findOne({ email });
     if (existing) return badRequest(res, 'El correo ya está registrado');
 
-    const hashed = await hashPassword(password);
-    const customer = await customerModel.create({ first_name, last_name, email, password: hashed, phone });
+    const hashedPassword = await hashPassword(password);
+    const verificationCode = crypto.randomBytes(3).toString('hex'); // 6 caracteres
 
-    return created(res, { id: customer._id }, 'Cliente registrado exitosamente');
+    const pendingToken = generateToken(
+      { first_name, last_name, email, phone, password: hashedPassword, verificationCode },
+      '15m'
+    );
+
+    res.cookie('registrationCookie', pendingToken, shortLivedCookieOptions);
+    await sendVerificationEmail(email, verificationCode);
+
+    return success(res, {}, 'Te enviamos un código de verificación a tu correo');
+  } catch (err) { next(err); }
+};
+
+// POST /api/auth/verificar-cuenta
+// Paso 2 de 2: compara el código que escribió el usuario contra el que va dentro
+// del JWT de la cookie. Solo si coincide se crea el Customer real en la BD.
+const verifyAccount = async (req, res, next) => {
+  try {
+    const { verificationCode } = req.body;
+
+    const pendingToken = req.cookies.registrationCookie;
+    const decoded = pendingToken ? verifyToken(pendingToken) : null;
+    if (!decoded) return badRequest(res, 'El registro expiró o no existe. Vuelve a registrarte.');
+
+    if (verificationCode.trim().toLowerCase() !== decoded.verificationCode)
+      return badRequest(res, 'Código de verificación incorrecto');
+
+    const existing = await customerModel.findOne({ email: decoded.email });
+    if (existing) {
+      res.clearCookie('registrationCookie');
+      return badRequest(res, 'El correo ya está registrado');
+    }
+
+    const customer = await customerModel.create({
+      first_name: decoded.first_name,
+      last_name: decoded.last_name,
+      email: decoded.email,
+      password: decoded.password,
+      phone: decoded.phone,
+      isVerified: true,
+    });
+
+    res.clearCookie('registrationCookie');
+
+    return created(res, { id: customer._id }, 'Cuenta verificada exitosamente. Ya puedes iniciar sesión.');
   } catch (err) { next(err); }
 };
 
@@ -96,10 +144,12 @@ const forgotPassword = async (req, res, next) => {
     const found = await findUserByEmail(email);
     if (!found) return notFound(res, 'No existe una cuenta con ese correo');
 
-    const code = crypto.randomBytes(6).toString("hex")
-    const token = generateToken({code})
+    // Código numérico de 6 dígitos: la UI (MailPasswordBox) solo acepta dígitos,
+    // por eso NO se usa randomBytes().toString('hex') aquí (generaría letras a-f).
+    const code = crypto.randomInt(100000, 1000000).toString();
+    const token = generateToken({ code }, '15m');
 
-    res.cookie("ForgotCookie", token)
+    res.cookie('ForgotCookie', token, shortLivedCookieOptions);
     await sendOTPEmail(email, code);
 
     return success(res, {}, 'Código enviado al correo');
@@ -109,17 +159,18 @@ const forgotPassword = async (req, res, next) => {
 // POST /api/auth/validar-pin
 const validatePin = async (req, res, next) => {
   try {
-    const { email, clientCode } = req.body;
-    if (!email || !clientCode) return badRequest(res, 'Correo y código son requeridos');
+    const { email, code } = req.body;
+    if (!email || !code) return badRequest(res, 'Correo y código son requeridos');
 
-    const token = req.cookies.ForgotCookie;
-    const { code } = verifyToken(token) 
+    const pendingToken = req.cookies.ForgotCookie;
+    const decoded = pendingToken ? verifyToken(pendingToken) : null;
+    if (!decoded) return badRequest(res, 'El código expiró o no existe. Solicita uno nuevo.');
 
-    const valid = clientCode === code
-    if (!valid) return badRequest(res, 'Código inválido o expirado');
+    if (code !== decoded.code) return badRequest(res, 'Código inválido o expirado');
 
-    const newToken = generateToken({email, verified: true})
-    res.cookie("ValidatedCookie", newToken)
+    const newToken = generateToken({ email, verified: true }, '15m');
+    res.cookie('ValidatedCookie', newToken, shortLivedCookieOptions);
+    res.clearCookie('ForgotCookie');
 
     return success(res, {}, 'Código válido');
   } catch (err) { next(err); }
@@ -129,21 +180,24 @@ const validatePin = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   try {
     const { password } = req.body;
-    if ( !password ) return badRequest(res, 'Correo y contraseña son requeridos');
+    if (!password) return badRequest(res, 'La contraseña es requerida');
+    if (password.length < 8) return badRequest(res, 'La contraseña debe tener al menos 8 caracteres');
 
-    const token = req.cookies.ValidatedCookie;
+    const validatedToken = req.cookies.ValidatedCookie;
+    const decoded = validatedToken ? verifyToken(validatedToken) : null;
+    if (!decoded || !decoded.verified)
+      return badRequest(res, 'El código de verificación expiró. Repite el proceso de recuperación.');
 
-    const {email, verified} = verifyToken(token)
+    const found = await findUserByEmail(decoded.email);
+    if (!found) return notFound(res, 'Usuario no encontrado');
 
-    if (!verified) return badRequest(res, "El correo no ha sido confirmado")
-
-    const found = await findUserByEmail(email)
-    
     const hashed = await hashPassword(password);
     found.user.password = hashed;
     await found.user.save();
 
-    return success(res, {}, 'Contraseña actualizada');
+    res.clearCookie('ValidatedCookie');
+
+    return success(res, {}, 'Contraseña actualizada exitosamente');
   } catch (err) { next(err); }
 };
 
@@ -152,6 +206,7 @@ export default {
   completeAdminProfile,
   login,
   registerCustomer,
+  verifyAccount,
   forgotPassword,
   validatePin,
   resetPassword,

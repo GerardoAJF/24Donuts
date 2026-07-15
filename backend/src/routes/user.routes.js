@@ -1,8 +1,11 @@
 import express from "express"
 
 import userController from '../controllers/user.controller.js';
+import { validateAuth } from '../middlewares/auth.middleware.js';
 
 const router = express.Router()
+
+router.use(validateAuth(["admin"]));
 
 router.route("/admins")
 .get(userController.getAdmins)

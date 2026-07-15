@@ -83,6 +83,38 @@
   background-color: #2e2626;
 }
 
+.formulario-boton-wrapper button:disabled {
+  background-color: #8a8a8a;
+  cursor: not-allowed;
+}
+
+.registro-error {
+  color: #c0392b;
+  background-color: #fdecea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.registro-login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.registro-login-link a {
+  color: #a05050;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.registro-login-link a:hover {
+  text-decoration: underline;
+}
+
 /* --- Responsividad --- */
 @media (max-width: 850px) {
   .registro-container {

@@ -4,7 +4,7 @@ import config from "./config.js"
 
 import { connectDB } from './database.js';
 
-const PORT = config.port || 3000;
+const PORT = config.port;
 
 const main = async () => {
   try {

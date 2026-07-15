@@ -22,6 +22,30 @@ transporter.verify((error) => {
   }
 });
 
+export const sendVerificationEmail = async (to, code) => {
+  try {
+    const info = await transporter.sendMail({
+      from: `"24Donuts" <${config.senderEmail}>`,
+      to,
+      subject: 'Confirma tu cuenta - 24Donuts',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 400px; margin: auto;">
+          <h2 style="color: #e85d04;">24Donuts</h2>
+          <p>¡Gracias por registrarte! Tu código de verificación es:</p>
+          <h1 style="letter-spacing: 8px; color: #333;">${code}</h1>
+          <p>Ingresa este código en la página de verificación para activar tu cuenta.</p>
+          <p>Este código expira en <strong>15 minutos</strong>.</p>
+          <p>Si no solicitaste este registro, ignora este correo.</p>
+        </div>
+      `,
+    });
+    console.log('Correo de verificación enviado:', info.messageId);
+  } catch (error) {
+    console.error('Error enviando correo de verificación:', error.message);
+    throw error;
+  }
+};
+
 export const sendOTPEmail = async (to, code) => {
   try {
     const info = await transporter.sendMail({

@@ -30,3 +30,20 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+
+.menu-message {
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.menu-message.success {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+}
+
+.menu-message.error {
+  color: #c0392b;
+  background-color: #fdecea;
+}

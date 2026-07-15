@@ -4,25 +4,26 @@ import BaseWindowCard from '../../../../components/private/BaseWindowCard/baseWi
 import Boton from '../../../../components/shared/RegisterButton/registerButton';
 import MailPasswordBox from '../../../../components/private/MailPasswordBox/MailPasswordBox';
 import api from '../../../../services/api';
+import { useToast } from '../../../../context/ToastContext.jsx';
 import './ForgotOTP.css';
 
 const ForgotOTP = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [pinFinal, setPinFinal] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const email = sessionStorage.getItem('recovery_email') || '';
 
   const handleConfirm = async () => {
-    if (pinFinal.length < 6) { setError('Ingresa el código completo'); return; }
+    if (pinFinal.length < 6) { showToast('Ingresa el código completo', 'error'); return; }
     setLoading(true);
-    setError('');
     try {
       await api.post('/auth/validar-pin', { email, code: pinFinal });
+      showToast('Código válido', 'success');
       navigate('/auth/nueva-contrasena');
     } catch (e) {
-      setError(e.response?.data?.message || 'Código inválido o expirado');
+      showToast(e.response?.data?.message || 'Código inválido o expirado', 'error');
     } finally {
       setLoading(false);
     }
@@ -35,7 +36,6 @@ const ForgotOTP = () => {
         subtitle={email || 'ejemplo@correo.com'}
       >
         <MailPasswordBox onPinChange={(valor) => setPinFinal(valor)} />
-        {error && <p style={{ color: 'red', fontSize: '13px', marginTop: '8px', textAlign: 'center' }}>{error}</p>}
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '20px' }}>
           <Boton text={loading ? 'Verificando...' : 'Confirmar'} onClick={handleConfirm} />
         </div>

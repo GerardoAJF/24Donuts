@@ -56,3 +56,22 @@
   border-top: 1px solid #e0d5cb;
   padding-top: 8px;
 }
+
+.cart-item-remove {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #a05050;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.cart-item-remove:hover {
+  background-color: #fdecea;
+}

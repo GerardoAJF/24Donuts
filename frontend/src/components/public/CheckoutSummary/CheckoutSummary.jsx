@@ -2,7 +2,7 @@ import BotonPrimario from "../../shared/Boton/Boton";
 import DeliveryCheckbox from "../DeliveryCheckbox/DeliveryCheckbox";
 import "./CheckoutSummary.css";
 
-function CheckoutSummary({ total = 0, onFinalize }) {
+function CheckoutSummary({ total = 0, onFinalize, disabled = false }) {
   return (
     <div className="checkout-summary">
       <p className="checkout-summary-total">
@@ -11,7 +11,7 @@ function CheckoutSummary({ total = 0, onFinalize }) {
 
       <DeliveryCheckbox label="Acepto los términos y condiciones" />
 
-      <BotonPrimario onClick={onFinalize}>Finalizar Compra</BotonPrimario>
+      <BotonPrimario onClick={onFinalize} disabled={disabled}>Finalizar Compra</BotonPrimario>
     </div>
   );
 }

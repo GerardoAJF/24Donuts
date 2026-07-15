@@ -3,7 +3,7 @@ import BotonPrimario from "../../shared/Boton/Boton";
 import Counter from "../../shared/Counter/Counter";
 import "./ProductCard.css";
 
-function ProductCard({ image, name, tags = [], description, price }) {
+function ProductCard({ id, image, name, tags = [], description, price, onAdd }) {
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -34,7 +34,7 @@ function ProductCard({ image, name, tags = [], description, price }) {
         <span className="product-card-price">Precio: ${price.toFixed(2)}</span>
 
         <div className="product-card-actions">
-          <BotonPrimario>Agregar</BotonPrimario>
+          <BotonPrimario onClick={() => onAdd && onAdd(id, quantity)}>Agregar</BotonPrimario>
           <Counter initialValue={1} min={1} max={99} onChange={setQuantity} />
         </div>
       </div>

@@ -1,0 +1,142 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.profile-main {
+  flex: 1;
+  padding: 32px 48px;
+  background-color: #f5f0eb;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  border: 1.5px solid #e0d5cb;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(59, 49, 43, 0.08);
+}
+
+.profile-title {
+  font-family: "Georgia", serif;
+  color: #3b312b;
+  margin: 0 0 16px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-info p {
+  margin: 0;
+  color: #3b312b;
+  font-family: "Georgia", serif;
+}
+
+.profile-orders-title {
+  font-family: "Georgia", serif;
+  color: #3b312b;
+  margin: 0 0 16px;
+}
+
+.profile-status {
+  color: #6b5d55;
+  padding: 1rem 0;
+}
+
+.profile-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-order-card {
+  background-color: #ffffff;
+  border: 1.5px solid #e0d5cb;
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 2px 8px rgba(59, 49, 43, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.profile-order-date {
+  color: #6b5d55;
+  font-size: 0.9rem;
+}
+
+.profile-order-status {
+  font-family: "Georgia", serif;
+  font-size: 0.82rem;
+  font-weight: bold;
+  padding: 4px 14px;
+  border-radius: 50px;
+}
+
+.status-pendiente {
+  color: #8a5a00;
+  background-color: #fff3e0;
+}
+
+.status-aceptado {
+  color: #1565c0;
+  background-color: #e3f2fd;
+}
+
+.status-rechazado {
+  color: #c0392b;
+  background-color: #fdecea;
+}
+
+.status-completado {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+}
+
+.profile-order-products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #3b312b;
+  font-size: 0.92rem;
+  border-top: 1px solid #e0d5cb;
+  border-bottom: 1px solid #e0d5cb;
+  padding: 10px 0;
+}
+
+.profile-order-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  color: #3b312b;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 700px) {
+  .profile-main {
+    padding: 20px 16px;
+  }
+
+  .profile-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

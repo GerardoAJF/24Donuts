@@ -21,3 +21,9 @@
   .boton-primario:active {
     transform: scale(0.98);
   }
+
+  .boton-primario:disabled {
+    background-color: #8a8a8a;
+    cursor: not-allowed;
+    transform: none;
+  }

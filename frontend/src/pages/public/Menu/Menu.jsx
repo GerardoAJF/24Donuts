@@ -7,6 +7,8 @@ import MenuCard from "../../../components/public/MenuCard/MenuCard";
 import Footer from "../../../components/public/Foteer/Foteer";
 import donuts from "../../../assets/donuts.png";
 import api from "../../../services/api";
+import { useCart } from "../../../hooks/useCart";
+import { useToast } from "../../../context/ToastContext.jsx";
 import "./Menu.css";
 
 const Menu = () => {
@@ -14,6 +16,8 @@ const Menu = () => {
   const [activeTags, setActiveTags] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,13 +34,13 @@ const Menu = () => {
         }));
         setProducts(normalized);
       } catch (e) {
-        console.error('Error cargando productos', e);
+        showToast(e.response?.data?.message || 'No se pudieron cargar los productos', 'error');
       } finally {
         setLoading(false);
       }
     };
     fetchProducts();
-  }, [search]);
+  }, [search, showToast]);
 
   const handleRemoveTag = (id) => setActiveTags(activeTags.filter((t) => t.id !== id));
 
@@ -54,6 +58,7 @@ const Menu = () => {
           <span className="menu-filters-label">Etiquetas:</span>
           <AddTags tags={activeTags} onRemove={handleRemoveTag} onOpenAdd={() => {}} />
         </div>
+
         {loading ? (
           <p style={{ textAlign: 'center', padding: '2rem' }}>Cargando productos...</p>
         ) : (
@@ -61,10 +66,12 @@ const Menu = () => {
             {products.map((product) => (
               <MenuCard
                 key={product.id}
+                id={product.id}
                 image={product.image}
                 name={product.name}
                 price={product.price}
                 tags={product.tags}
+                onAdd={addToCart}
               />
             ))}
           </div>

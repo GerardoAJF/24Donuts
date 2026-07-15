@@ -24,6 +24,10 @@ export const loginUser = async (email, password) => {
   const match = await comparePassword(password, found.user.password);
   if (!match) return null;
 
+  if (found.role === 'customer' && !found.user.isVerified) {
+    return { unverified: true };
+  }
+
   const token = generateToken({
     id: found.user._id,
     role: found.role,

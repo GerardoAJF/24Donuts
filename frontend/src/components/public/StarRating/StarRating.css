@@ -1,0 +1,17 @@
+.star-rating {
+  display: flex;
+  gap: 4px;
+}
+
+.star-rating:not(.star-rating--readonly) .star-filled,
+.star-rating:not(.star-rating--readonly) .star-empty {
+  cursor: pointer;
+}
+
+.star-filled {
+  color: #e8a63f;
+}
+
+.star-empty {
+  color: #d9cfc4;
+}

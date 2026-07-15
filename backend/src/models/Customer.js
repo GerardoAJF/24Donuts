@@ -6,6 +6,7 @@ const customerSchema = new Schema({
   email:      { type: String, required: true, unique: true, lowercase: true, trim: true },
   password:   { type: String, required: true },
   phone:      { type: String, required: true, trim: true },
+  isVerified: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default model('Customer', customerSchema);

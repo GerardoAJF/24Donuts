@@ -67,3 +67,36 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }
+
+.checkout-message {
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
+
+.checkout-message.success {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+}
+
+.checkout-message.error {
+  color: #c0392b;
+  background-color: #fdecea;
+}
+
+.checkout-confirmation {
+  padding: 40px 50px;
+  text-align: center;
+  max-width: 380px;
+}
+
+.checkout-confirmation h2 {
+  font-family: "Georgia", serif;
+  color: #3b312b;
+  margin-top: 0;
+}
+
+.checkout-confirmation p {
+  color: #6b5d55;
+  margin-bottom: 0;
+}

@@ -57,6 +57,32 @@
   color: #a05050;
 }
 
+.login-footer button:disabled {
+  background-color: #8a8a8a;
+  cursor: not-allowed;
+}
+
+.login-error {
+  color: #c0392b;
+  background-color: #fdecea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.login-info {
+  color: #8a5a00;
+  background-color: #fff3e0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .login-imagen-seccion {
   flex: 1;
   line-height: 0;

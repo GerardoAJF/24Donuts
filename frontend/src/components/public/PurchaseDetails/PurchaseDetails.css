@@ -56,3 +56,13 @@
   width: 100%;
   display: block;
 }
+
+.purchase-details-error {
+  color: #c0392b;
+  background-color: #fdecea;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../../components/public/Navbar/Navbar";
 import CartItem from "../../../components/public/CartItem/CartItem";
@@ -7,50 +7,16 @@ import Footer from "../../../components/public/Foteer/Foteer";
 import BotonPrimario from "../../../components/shared/Boton/Boton";
 import { FaChevronLeft } from "react-icons/fa6";
 import donuts from "../../../assets/donuts.png";
-import api from "../../../services/api";
+import { useCart } from "../../../hooks/useCart";
 import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const { items, total, loading, loadCart, updateAmount, removeItem } = useCart();
 
-  const loadCart = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-      const res = await api.get('/cart');
-      const cart = res.data.data.cart;
-      if (cart) {
-        const normalized = (cart.products || []).map(p => ({
-          id: p.product_id?._id || p.product_id,
-          image: p.product_id?.img_link || donuts,
-          name: p.product_id?.name || 'Producto',
-          price: p.product_id?.price || 0,
-          amount: p.amount,
-        }));
-        setItems(normalized);
-        setTotal(cart.total || 0);
-      }
-    } catch (e) {
-      console.error('Error cargando carrito', e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { loadCart(); }, []);
-
-  const handleRemoveItem = async (productId) => {
-    try {
-      await api.delete(`/cart/remove/${productId}`);
-      await loadCart();
-    } catch (e) { console.error('Error eliminando del carrito', e); }
-  };
+  useEffect(() => {
+    loadCart();
+  }, [loadCart]);
 
   return (
     <div className="shopping-cart-page">
@@ -60,6 +26,7 @@ const ShoppingCart = () => {
           <BotonPrimario onClick={() => navigate("/menu")}>
             <FaChevronLeft size={12} /> Seguir Comprando
           </BotonPrimario>
+
           {loading ? (
             <p style={{ padding: '1rem' }}>Cargando carrito...</p>
           ) : items.length === 0 ? (
@@ -69,17 +36,24 @@ const ShoppingCart = () => {
               {items.map((item) => (
                 <CartItem
                   key={item.id}
-                  image={item.image}
+                  image={item.image || donuts}
                   name={item.name}
                   price={item.price}
-                  onRemove={() => handleRemoveItem(item.id)}
+                  amount={item.amount}
+                  subtotal={item.subtotal}
+                  onChangeAmount={(amount) => updateAmount(item.id, amount)}
+                  onRemove={() => removeItem(item.id)}
                 />
               ))}
             </div>
           )}
         </div>
         <div className="shopping-cart-right">
-          <CheckoutSummary total={total} onFinalize={() => navigate("/checkout")} />
+          <CheckoutSummary
+            total={total}
+            onFinalize={() => navigate("/checkout")}
+            disabled={items.length === 0}
+          />
         </div>
       </main>
       <Footer />

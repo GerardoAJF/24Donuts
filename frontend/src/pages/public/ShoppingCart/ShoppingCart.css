@@ -50,3 +50,19 @@
   flex: 1;
   min-height: unset;
 }
+
+.shopping-cart-message {
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
+
+.shopping-cart-message.success {
+  color: #1e7e34;
+  background-color: #e6f6ea;
+}
+
+.shopping-cart-message.error {
+  color: #c0392b;
+  background-color: #fdecea;
+}

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
@@ -14,10 +15,11 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
+      const role = localStorage.getItem('role');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('role');
-      window.location.href = '/auth/login';
+      window.location.href = role === 'customer' ? '/login' : '/auth/login';
     }
     return Promise.reject(err);
   }
