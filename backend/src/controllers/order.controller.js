@@ -53,7 +53,9 @@ const getOrderById = async (req, res, next) => {
 const createOrder = async (req, res, next) => {
   try {
     const { pay_method, delivery, address_delivery } = req.body;
-    if (!pay_method) return badRequest(res, 'Método de pago es requerido');
+    if (!['Efectivo', 'Tarjeta'].includes(pay_method)) return badRequest(res, 'Método de pago inválido');
+    if (delivery && !String(address_delivery || '').trim())
+      return badRequest(res, 'La dirección de entrega es requerida');
 
     const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart || cart.products.length === 0) return badRequest(res, 'El carrito está vacío');

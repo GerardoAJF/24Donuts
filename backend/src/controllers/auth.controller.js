@@ -1,5 +1,7 @@
 import crypto from "crypto"
 
+import config from "../../config.js";
+
 import adminModel from '../models/Admin.js';
 import customerModel from '../models/Customer.js';
 import { hashPassword } from '../utils/bcrypt.js';
@@ -87,41 +89,55 @@ const registerCustomer = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
+const RESET_CODE_TTL = '10m';
+
+// El código nunca viaja en claro dentro del token: solo un HMAC de correo + código
+const hashCode = (email, code) =>
+  crypto.createHmac('sha256', config.jwtSecret).update(`${email}:${code}`).digest('hex');
+
+const readCookie = (req, name) => {
+  const pair = (req.headers.cookie || '').split(';').map(c => c.trim()).find(c => c.startsWith(`${name}=`));
+  return pair ? decodeURIComponent(pair.slice(name.length + 1)) : null;
+};
+
 // POST /api/auth/recuperar-correo
 const forgotPassword = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
     if (!email) return badRequest(res, 'Correo es requerido');
 
     const found = await findUserByEmail(email);
     if (!found) return notFound(res, 'No existe una cuenta con ese correo');
 
-    const code = crypto.randomBytes(6).toString("hex")
-    const token = generateToken({code})
+    const code = crypto.randomInt(0, 1000000).toString().padStart(6, '0');
+    const token = generateToken({ email, codeHash: hashCode(email, code) }, RESET_CODE_TTL);
 
-    res.cookie("ForgotCookie", token)
-    await sendOTPEmail(email, code);
+    try {
+      await sendOTPEmail(email, code);
+    } catch {
+      return res.status(503).json({ success: false, message: 'No se pudo enviar el correo. Intenta más tarde.' });
+    }
 
-    return success(res, {}, 'Código enviado al correo');
+    res.cookie("ForgotCookie", token, { httpOnly: true, maxAge: 10 * 60 * 1000 })
+    return success(res, { token }, 'Código enviado al correo');
   } catch (err) { next(err); }
 };
 
 // POST /api/auth/validar-pin
 const validatePin = async (req, res, next) => {
   try {
-    const { email, clientCode } = req.body;
+    const email = String(req.body.email || '').trim().toLowerCase();
+    const clientCode = String(req.body.clientCode || req.body.code || '').trim();
     if (!email || !clientCode) return badRequest(res, 'Correo y código son requeridos');
 
-    const token = req.cookies.ForgotCookie;
-    const { code } = verifyToken(token) 
-
-    const valid = clientCode === code
+    const payload = verifyToken(req.body.token || readCookie(req, 'ForgotCookie'));
+    const valid = payload && payload.email === email && payload.codeHash === hashCode(email, clientCode);
     if (!valid) return badRequest(res, 'Código inválido o expirado');
 
-    const newToken = generateToken({email, verified: true})
-    res.cookie("ValidatedCookie", newToken)
+    const resetToken = generateToken({ email, verified: true }, RESET_CODE_TTL);
+    res.cookie("ValidatedCookie", resetToken, { httpOnly: true, maxAge: 10 * 60 * 1000 })
 
-    return success(res, {}, 'Código válido');
+    return success(res, { resetToken }, 'Código válido');
   } catch (err) { next(err); }
 };
 
@@ -129,18 +145,15 @@ const validatePin = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   try {
     const { password } = req.body;
-    if ( !password ) return badRequest(res, 'Correo y contraseña son requeridos');
+    if (!password) return badRequest(res, 'La contraseña es requerida');
 
-    const token = req.cookies.ValidatedCookie;
+    const payload = verifyToken(req.body.resetToken || readCookie(req, 'ValidatedCookie'));
+    if (!payload?.verified) return badRequest(res, 'El correo no ha sido confirmado o el código expiró');
 
-    const {email, verified} = verifyToken(token)
+    const found = await findUserByEmail(payload.email);
+    if (!found) return notFound(res, 'No existe una cuenta con ese correo');
 
-    if (!verified) return badRequest(res, "El correo no ha sido confirmado")
-
-    const found = await findUserByEmail(email)
-    
-    const hashed = await hashPassword(password);
-    found.user.password = hashed;
+    found.user.password = await hashPassword(password);
     await found.user.save();
 
     return success(res, {}, 'Contraseña actualizada');

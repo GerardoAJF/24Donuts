@@ -14,8 +14,10 @@ const getCart = async (req, res, next) => {
 // POST /api/cart/add
 const addToCart = async (req, res, next) => {
   try {
-    const { product_id, amount } = req.body;
-    if (!product_id || !amount) return badRequest(res, 'product_id y amount son requeridos');
+    const { product_id } = req.body;
+    const amount = Number(req.body.amount);
+    if (!product_id || !Number.isInteger(amount) || amount < 1)
+      return badRequest(res, 'product_id y amount son requeridos');
 
     const product = await productModel.findById(product_id);
     if (!product) return notFound(res, 'Producto no encontrado');
@@ -37,6 +39,7 @@ const addToCart = async (req, res, next) => {
 
     cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
     await cart.save();
+    await cart.populate('products.product_id');
 
     return success(res, { cart });
   } catch (err) { next(err); }
@@ -45,8 +48,9 @@ const addToCart = async (req, res, next) => {
 // PUT /api/cart/update
 const updateCartItem = async (req, res, next) => {
   try {
-    const { product_id, amount } = req.body;
-    if (!product_id || amount === undefined) return badRequest(res, 'product_id y amount son requeridos');
+    const { product_id } = req.body;
+    const amount = Number(req.body.amount);
+    if (!product_id || !Number.isInteger(amount)) return badRequest(res, 'product_id y amount son requeridos');
 
     const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart) return notFound(res, 'Carrito no encontrado');
@@ -66,6 +70,7 @@ const updateCartItem = async (req, res, next) => {
 
     cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
     await cart.save();
+    await cart.populate('products.product_id');
 
     return success(res, { cart });
   } catch (err) { next(err); }
@@ -80,6 +85,7 @@ const removeFromCart = async (req, res, next) => {
     cart.products = cart.products.filter(p => p.product_id.toString() !== req.params.productId);
     cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
     await cart.save();
+    await cart.populate('products.product_id');
 
     return success(res, { cart });
   } catch (err) { next(err); }

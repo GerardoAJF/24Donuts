@@ -5,10 +5,11 @@ import productRoutes from "./product.routes.js"
 import tagRoutes from "./tag.routes.js"
 import cartRoutes from "./cart.routes.js"
 import orderRoutes from "./order.routes.js"
-import promotionRoutes from "./product.routes.js"
+import promotionRoutes from "./promotion.routes.js"
 import ingredientRoutes from "./ingredient.routes.js"
 import billRoutes from "./bill.routes.js"
 import userRoutes from "./user.routes.js"
+import profileRoutes from "./profile.routes.js"
 
 const router = express.Router()
 
@@ -21,5 +22,6 @@ router.use('/promotions', promotionRoutes);
 router.use('/ingredients', ingredientRoutes);
 router.use('/bills', billRoutes);
 router.use('/users', userRoutes);
+router.use('/profile', profileRoutes);
 
 export default router;
