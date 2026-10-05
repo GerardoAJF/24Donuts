@@ -1,5 +1,6 @@
 import orderModel from '../models/Order.js';
 import shoppingCartModel from '../models/ShoppingCart.js';
+import { getActivePromotions, repriceCart } from '../services/pricing.service.js';
 import { success, created, badRequest, notFound, forbidden } from '../utils/responses.js';
 
 // GET /api/orders  (admin/employee)
@@ -57,7 +58,9 @@ const createOrder = async (req, res, next) => {
     if (delivery && !String(address_delivery || '').trim())
       return badRequest(res, 'La dirección de entrega es requerida');
 
-    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true })
+      .populate('products.product_id');
+    if (cart) repriceCart(cart, await getActivePromotions());
     if (!cart || cart.products.length === 0) return badRequest(res, 'El carrito está vacío');
 
     cart.actual = false;

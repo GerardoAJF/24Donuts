@@ -13,6 +13,12 @@ app.use('/api', routes);
 
 // Errores no controlados → JSON (en lugar de la página HTML por defecto de Express)
 app.use((err, req, res, next) => {
+  if (err.name === 'MulterError') {
+    const message = err.code === 'LIMIT_FILE_SIZE' ? 'La imagen no debe pesar más de 5 MB' : err.message;
+    return res.status(400).json({ success: false, message });
+  }
+  if (err instanceof SyntaxError) return res.status(400).json({ success: false, message: 'Formato de datos inválido' });
+  if (err.http_code) return res.status(502).json({ success: false, message: 'No se pudo subir la imagen' });
   if (err.name === 'CastError') return res.status(400).json({ success: false, message: 'Identificador inválido' });
   if (err.name === 'ValidationError') return res.status(400).json({ success: false, message: err.message });
   console.error(err);

@@ -1,14 +1,15 @@
 import express from "express"
 
 import productController from '../controllers/product.controller.js';
+import { uploadProductImage } from '../middlewares/upload.middleware.js';
 
 const router = express.Router()
 
 router.get('/', productController.getProducts);
-router.post('/', productController.createProduct);
+router.post('/', uploadProductImage, productController.createProduct);
 
 router.get('/:id', productController.getProductById);
-router.put('/:id', productController.updateProduct);
+router.put('/:id', uploadProductImage, productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);
 
 export default router;
