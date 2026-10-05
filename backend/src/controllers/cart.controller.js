@@ -1,21 +1,32 @@
 import shoppingCartModel from "../models/ShoppingCart.js";
 import productModel from "../models/Product.js";
-import { success, created, badRequest, notFound } from "../utils/responses.js";
+import { success, badRequest, notFound } from "../utils/responses.js";
+import { getActivePromotions, repriceCart } from "../services/pricing.service.js";
+
+// Aplica los precios vigentes (con promociones), guarda y devuelve el carrito poblado
+const saveWithPrices = async (cart) => {
+  await cart.populate('products.product_id');
+  repriceCart(cart, await getActivePromotions());
+  await cart.save();
+  await cart.populate('products.product_id');
+  return cart;
+};
 
 // GET /api/cart  — carrito activo del cliente
 const getCart = async (req, res, next) => {
   try {
-    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true })
-      .populate('products.product_id');
-    return success(res, { cart: cart || null });
+    const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
+    return success(res, { cart: cart ? await saveWithPrices(cart) : null });
   } catch (err) { next(err); }
 };
 
 // POST /api/cart/add
 const addToCart = async (req, res, next) => {
   try {
-    const { product_id, amount } = req.body;
-    if (!product_id || !amount) return badRequest(res, 'product_id y amount son requeridos');
+    const { product_id } = req.body;
+    const amount = Number(req.body.amount);
+    if (!product_id || !Number.isInteger(amount) || amount < 1)
+      return badRequest(res, 'product_id y amount son requeridos');
 
     const product = await productModel.findById(product_id);
     if (!product) return notFound(res, 'Producto no encontrado');
@@ -25,34 +36,26 @@ const addToCart = async (req, res, next) => {
       cart = await shoppingCartModel.create({ customer_id: req.user.id, products: [], total: 0 });
     }
 
-    const subtotal = product.price * amount;
     const idx = cart.products.findIndex(p => p.product_id.toString() === product_id);
-
     if (idx >= 0) {
       cart.products[idx].amount += amount;
-      cart.products[idx].subtotal += subtotal;
     } else {
-      cart.products.push({ product_id, amount, subtotal });
+      cart.products.push({ product_id, amount, subtotal: 0 });
     }
 
-    cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
-    await cart.save();
-
-    return success(res, { cart });
+    return success(res, { cart: await saveWithPrices(cart) });
   } catch (err) { next(err); }
 };
 
 // PUT /api/cart/update
 const updateCartItem = async (req, res, next) => {
   try {
-    const { product_id, amount } = req.body;
-    if (!product_id || amount === undefined) return badRequest(res, 'product_id y amount son requeridos');
+    const { product_id } = req.body;
+    const amount = Number(req.body.amount);
+    if (!product_id || !Number.isInteger(amount)) return badRequest(res, 'product_id y amount son requeridos');
 
     const cart = await shoppingCartModel.findOne({ customer_id: req.user.id, actual: true });
     if (!cart) return notFound(res, 'Carrito no encontrado');
-
-    const product = await productModel.findById(product_id);
-    if (!product) return notFound(res, 'Producto no encontrado');
 
     const idx = cart.products.findIndex(p => p.product_id.toString() === product_id);
     if (idx < 0) return notFound(res, 'Producto no está en el carrito');
@@ -61,13 +64,9 @@ const updateCartItem = async (req, res, next) => {
       cart.products.splice(idx, 1);
     } else {
       cart.products[idx].amount = amount;
-      cart.products[idx].subtotal = product.price * amount;
     }
 
-    cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
-    await cart.save();
-
-    return success(res, { cart });
+    return success(res, { cart: await saveWithPrices(cart) });
   } catch (err) { next(err); }
 };
 
@@ -78,10 +77,8 @@ const removeFromCart = async (req, res, next) => {
     if (!cart) return notFound(res, 'Carrito no encontrado');
 
     cart.products = cart.products.filter(p => p.product_id.toString() !== req.params.productId);
-    cart.total = cart.products.reduce((acc, p) => acc + p.subtotal, 0);
-    await cart.save();
 
-    return success(res, { cart });
+    return success(res, { cart: await saveWithPrices(cart) });
   } catch (err) { next(err); }
 };
 

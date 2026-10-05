@@ -10,6 +10,7 @@ import ingredientRoutes from "./ingredient.routes.js"
 import billRoutes from "./bill.routes.js"
 import userRoutes from "./user.routes.js"
 import reviewRoutes from "./review.routes.js"
+import profileRoutes from "./profile.routes.js"
 
 const router = express.Router()
 
@@ -23,5 +24,6 @@ router.use('/ingredients', ingredientRoutes);
 router.use('/bills', billRoutes);
 router.use('/users', userRoutes);
 router.use('/reviews', reviewRoutes);
+router.use('/profile', profileRoutes);
 
 export default router;

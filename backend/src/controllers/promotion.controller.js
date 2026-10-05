@@ -1,5 +1,6 @@
 import promotionModel from '../models/Promotion.js';
 import { success, created, badRequest, notFound }from '../utils/responses.js';
+import { getActivePromotions, withPricing } from '../services/pricing.service.js';
 
 const getPromotions = async (req, res, next) => {
   try {
@@ -24,7 +25,13 @@ const getPromotions = async (req, res, next) => {
       });
     }
 
-    return success(res, { promotions: result });
+    const activePromotions = await getActivePromotions();
+    const withPrices = result.map(promo => ({
+      ...promo.toObject(),
+      products: promo.products.filter(Boolean).map(p => withPricing(p, activePromotions)),
+    }));
+
+    return success(res, { promotions: withPrices });
   } catch (err) { next(err); }
 };
 
