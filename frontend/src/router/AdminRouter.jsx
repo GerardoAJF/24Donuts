@@ -129,15 +129,17 @@ const AdminRouter = () => {
 
     const handleProductSubmit = async ({ id, nombre, descripcion, precio, imagen }) => {
         try {
+            // multipart/form-data: el backend sube "image" a Cloudinary y guarda la URL en img_link
+            const formData = new FormData();
+            formData.append('name', nombre);
+            formData.append('description', descripcion);
+            formData.append('price', precio);
+            if (imagen) formData.append('image', imagen);
+
             if (id) {
-                await api.put(`/products/${id}`, {
-                    name: nombre, description: descripcion, price: precio,
-                });
+                await api.put(`/products/${id}`, formData);
             } else {
-                await api.post('/products', {
-                    name: nombre, description: descripcion, price: precio,
-                    img_link: imagen ? URL.createObjectURL(imagen) : '',
-                });
+                await api.post('/products', formData);
             }
             await loadProducts();
             setProductFormOpen(false);
